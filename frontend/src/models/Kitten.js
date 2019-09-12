@@ -1,6 +1,6 @@
-import REST from './REST'
+import Rest from './Rest'
 
-class Kitten extends REST {
+export default class Kitten extends Rest {
   constructor(obj) {
     super(obj);
     Object.assign(this, obj)

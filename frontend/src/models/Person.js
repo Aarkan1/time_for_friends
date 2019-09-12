@@ -1,6 +1,6 @@
-import REST from './REST'
+import Rest from './Rest'
 
-class Person extends REST {
+export default class Person extends Rest {
   constructor(obj) {
     super(obj);
     this.kittens = [];

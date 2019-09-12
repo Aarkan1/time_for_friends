@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { sleep } from "../utils";
+import { sleep } from "../utilities/utils";
 
 export default class Clock extends Component {
   offset = this.props.timeOffset * 60 * 60 * 1000

@@ -10,11 +10,14 @@ module.exports = class Rest {
 
   get() {
     this.app.get("/rest/:entity", async (req, res) => {
-      const query = JSON.parse(decodeURIComponent(req.query.q || '{}'))
-      
+      const query = JSON.parse(decodeURIComponent(req.query.q || '{}'), (key, val) => {
+        return key === '$regex' ? this.backToRegEx(val) : val;
+      })
+      const options = JSON.parse(decodeURIComponent(req.query.o || '{}'))
+            
       let results;
       try {
-        results = await mongoose.model(req.params.entity).find(query, null, { populate: ['kittens'] }).exec()
+        results = await mongoose.model(req.params.entity).find(query, null, options).exec()
         res.json({ results });
       } catch {
         res.status(404).json({ error: 'Could not find ' + req.params.entity })
@@ -89,6 +92,14 @@ module.exports = class Rest {
         res.status(404).json({ error: "No such " + req.params.entity });
       }
     });
+  }
+
+  backToRegEx(val) {
+    // convert back to reg ex from stringified reg ex
+    return new RegExp(
+      val.replace(/\w*$/, '').replace(/^\/(.*)\/$/, '$1'),
+      (val.match(/\w*$/) || [''])[0]
+    );
   }
 
   addKittenOwner(personId, kitten) {

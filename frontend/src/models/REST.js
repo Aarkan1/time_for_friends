@@ -1,37 +1,50 @@
-class REST {
+let type;
+
+export default class Rest {
   constructor(obj) {
-    this.type = this.constructor.name
-    Object.assign(this, obj)
+    type = this.constructor.name;
+    Object.assign(this, obj);
   }
 
-  static async findOne(query = {}) {
+  static async findOne(query = {}, options = {}) {
     const id = query._id;
-    if(typeof query === 'string') {
-      query = { _id: query }
-    }
-    query = encodeURIComponent(JSON.stringify(query));
+    query = typeof query === 'object' ? query : { _id: query }
     
-    let result = await customGet(`/rest/${this.type || this.name}/${id ? id : this._id}?q=${query}`);
-    return new this(result)
+    query = encodeURIComponent(JSON.stringify(query, (key, val) =>
+    val.constructor === RegExp ?
+      { $regex: val.toString() } : val));
+    options = encodeURIComponent(JSON.stringify(options));
+    
+    let result = await customGet(`/rest/${type || this.name}/${id ? id : this._id}?q=${query}&o=${options}`);
+    let model = new this(result)
+    delete model.__v;
+    return model
   }
 
-  static async find(query = {}) {
-    query = encodeURIComponent(JSON.stringify(query));
+  static async find(query = {}, options = {}) {
+    query = encodeURIComponent(JSON.stringify(query, (key, val) =>
+    val.constructor === RegExp ?
+      { $regex: val.toString() } : val));
+    options = encodeURIComponent(JSON.stringify(options));
 
-    let results = await customGet(`/rest/${this.type || this.name}?q=${query}`); 
+    let results = await customGet(`/rest/${type || this.name}?q=${query}&o=${options}`); 
     results = results.results;
     
-    return results.map(result => new this(result))
+    return results.map(result => {
+      let model = new this(result)
+      delete model.__v;
+      return model
+    })
   }
 
   async save() {
-    this._id ? await customPut(`/rest/${this.type || this.name}`, this) 
-             : await customPost(`/rest/${this.type || this.name}`, this);
+    this._id ? await customPut(`/rest/${type || this.name}`, this) 
+             : await customPost(`/rest/${type || this.name}`, this);
     return this
   }
 
   async delete() {
-    return await customDelete(`/rest/${this.type || this.name}/${this._id}`)
+    return await customDelete(`/rest/${type || this.name}/${this._id}`)
   }
 }
 
