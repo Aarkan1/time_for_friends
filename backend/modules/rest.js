@@ -10,9 +10,11 @@ module.exports = class Rest {
 
   get() {
     this.app.get("/rest/:entity", async (req, res) => {
+      const query = JSON.parse(decodeURIComponent(req.query.q || '{}'))
+      
       let results;
       try {
-        results = await mongoose.model(req.params.entity).find({}, null, { populate: ['kittens'] }).exec()
+        results = await mongoose.model(req.params.entity).find(query, null, { populate: ['kittens'] }).exec()
         res.json({ results });
       } catch {
         res.status(404).json({ error: 'Could not find ' + req.params.entity })
@@ -20,10 +22,12 @@ module.exports = class Rest {
     });
 
     this.app.get("/rest/:entity/:id", async (req, res) => {
+      const query = JSON.parse(decodeURIComponent(req.query.q || '{}'))
+      
       let result;
       try {
-          result= await mongoose.model(req.params.entity)
-          .findOne({ _id: req.params.id }, null, { populate: ['kittens'] }).exec()
+        result= await mongoose.model(req.params.entity)
+        .findOne(query, null, { populate: ['kittens'] }).exec()
       } catch {
         res.status(404).json({ error: `Could not find ${req.params.entity} with id: ${req.params.id}` })
       }
