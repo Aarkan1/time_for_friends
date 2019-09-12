@@ -12,11 +12,7 @@ module.exports = class Rest {
     this.app.get("/rest/:entity", async (req, res) => {
       let results;
       try {
-        if(req.params.entity === 'Person') {
-          results = await mongoose.model(req.params.entity).find().populate('kittens')
-        } else {
-          results = await mongoose.model(req.params.entity).find()
-        }
+        results = await mongoose.model(req.params.entity).find({}, null, { populate: ['kittens'] }).exec()
         res.json({ results });
       } catch {
         res.status(404).json({ error: 'Could not find ' + req.params.entity })
@@ -26,13 +22,8 @@ module.exports = class Rest {
     this.app.get("/rest/:entity/:id", async (req, res) => {
       let result;
       try {
-        if(req.params.entity === 'Person') {
           result= await mongoose.model(req.params.entity)
-          .findOne({ _id: req.params.id }).populate('kittens')
-        } else {
-          result= await mongoose.model(req.params.entity)
-          .findOne({ _id: req.params.id })
-        }
+          .findOne({ _id: req.params.id }, null, { populate: ['kittens'] }).exec()
       } catch {
         res.status(404).json({ error: `Could not find ${req.params.entity} with id: ${req.params.id}` })
       }
