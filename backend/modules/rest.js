@@ -25,8 +25,9 @@ module.exports = class Rest {
     });
 
     this.app.get("/rest/:entity/:id", async (req, res) => {
-      const query = JSON.parse(decodeURIComponent(req.query.q || '{}'))
-      
+      const query = JSON.parse(decodeURIComponent(req.query.q || '{}'), (key, val) => {
+        return key === '$regex' ? this.backToRegEx(val) : val;
+      })
       let result;
       try {
         result= await mongoose.model(req.params.entity)
