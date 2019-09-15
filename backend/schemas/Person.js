@@ -4,8 +4,13 @@ const Schema = mongoose.Schema;
 
 let personSchema = new Schema({
   name: String,
-  age: Number,
-  kittens: [{ type: ObjectId, ref: "Kitten" }]
+  phoneNumbers: Array,
+  mailAddresses: Array,
+  city: String,
+  country: String,
+  timezone: String,
+  sleeps: String,
+  works:  String
 });
 
 class PersonClass {
