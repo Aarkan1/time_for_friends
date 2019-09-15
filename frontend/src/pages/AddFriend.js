@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Person from '../models/Person'
 
-export default class About extends Component {
+export default class AddFriend extends Component {
 
     async componentDidMount() {
       console.log(await Person.findOne('5d75f9ab9f405453784fb3c8'));
@@ -12,6 +12,8 @@ export default class About extends Component {
     return (
       <div>
         <h1>The about page!</h1>
+
+        {this.props.match.params.lol}
       </div>
     );
   }

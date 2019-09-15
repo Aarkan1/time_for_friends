@@ -12,33 +12,22 @@ body {
 }
 
 .App {
-  text-align: center;
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
   main {
     flex: 1;
   }
-  p {
-    margin: 0;
-  }
-  button {
-    cursor: pointer;
-  }
 }
 
-footer {
+.footer {
   height: 60px;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-top: 20px;
-  background-color: #555;
-  border-top: solid 1px #999
+  border-top: solid 1px #999;
+  h6 {
+    width: 100%;
+    margin: 0;
+  }
 }

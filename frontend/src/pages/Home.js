@@ -27,11 +27,13 @@ export default class Home extends Component {
 
   clockList() {
     return this.cityTime.map(time => (
-      <div key={time.city}>
+      <div className="z-depth-2" key={time.city}>
         <Clock {...time}>
           <p>Cool clock!</p>
         </Clock>
-        <button onClick={e => this.removeAClock(time)}>Remove clock</button>
+        <button className="btn-small light-blue waves-effect waves-light" 
+        onClick={e => this.removeAClock(time)}>
+        <i className="material-icons right">delete</i> Remove clock</button>
       </div>
     ));
   }
@@ -40,6 +42,8 @@ export default class Home extends Component {
     return (
       <div className="App-header">
         <Hello greeting="WoW" />
+        {this.clockList()}
+        {this.clockList()}
         {this.clockList()}
       </div>
     );
