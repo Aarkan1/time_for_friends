@@ -6,6 +6,9 @@ module.exports = class Rest {
     this.post();
     this.put();
     this.delete();
+
+    // Uncomment below to reset database
+    // this.resetDB()
   }
 
   get() {
@@ -49,10 +52,6 @@ module.exports = class Rest {
           res.status(500).json({ error: 'Could not create ' +  req.params.entity })
         } else {
           console.log("Created:", result);
-
-          if(req.params.entity === 'Kitten') {
-            await this.addKittenOwner(req.body.owner, result)
-          }
           res.json(result);
         }
       });
@@ -103,18 +102,23 @@ module.exports = class Rest {
     );
   }
 
-  addKittenOwner(personId, kitten) {
-    mongoose.model('Person')
-      .find({ _id: personId }, async (err, person) => {
-        if(err) {
-          console.error(err);
-        } else {
-          person = person[0]
-          console.log("Add kitten to:", person);
+  async resetDB() {
+    try {
+      let results = await mongoose.model('Person').find({})
+      results.map(p => p.delete())
 
-          person.kittens.push(kitten)
-          await person.save();
-        }
+      const friendsList = require('./friendsList');
+      friendsList.map(friend => {
+        mongoose.model('Person').create(friend, async (err, result) => {
+          if(err) {
+            console.error(err);
+          } else {
+            console.log("Created:", result);
+          }
       })
+    })
+    } catch (err){
+      console.error('Error:', err);
+    }
   }
 };
