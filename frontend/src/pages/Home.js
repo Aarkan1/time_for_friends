@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Hello from "../components/Hello";
+import FriendCard from "../components/FriendCard";
 import Clock from "../components/Clock";
-import { sleep } from "../utilities/utils";
-import Person from '../models/Person'
+import Person from "../models/Person";
 
 export default class Home extends Component {
   state = {
-    cityTime: this.cityTime
+    cityTime: this.cityTime,
+    friends: []
   };
 
   cityTime = [
@@ -21,30 +21,25 @@ export default class Home extends Component {
   }
 
   async componentDidMount() {
-    let persons = await Person.find({name: /an/}, { populate: ['kittens'] })
-    console.log(persons);
+    let regex = new RegExp("AN", "i");
+    let friends = await Person.find();
+    this.setState({ friends });
+    console.log(friends);
   }
 
-  clockList() {
-    return this.cityTime.map(time => (
-      <div className="z-depth-2" key={time.city}>
-        <Clock {...time}>
-          <p>Cool clock!</p>
-        </Clock>
-        <button className="btn-small light-blue waves-effect waves-light" 
-        onClick={e => this.removeAClock(time)}>
-        <i className="material-icons right">delete</i> Remove clock</button>
-      </div>
-    ));
+  listFriends() {
+    return this.state.friends.map((friend, i) => <FriendCard {...friend} key={friend.name + i} />);
   }
 
   render() {
     return (
-      <div className="App-header">
-        <Hello greeting="WoW" />
-        {this.clockList()}
-        {this.clockList()}
-        {this.clockList()}
+      <div>
+        <div className="row valign-wrapper">
+          <h4>Your time</h4>
+          <Clock />
+        </div>
+        <h4>Friends</h4>
+        <div className="App-header">{this.listFriends()}</div>
       </div>
     );
   }
