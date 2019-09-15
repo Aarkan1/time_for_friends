@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { sleep } from "../utilities/utils";
 
 export default class Clock extends Component {
-  offset = this.props.timeOffset * 60 * 60 * 1000
+  offset = (this.props.timeOffset || 0) * 60 * 60 * 1000
   _isMounted = false;
   state = {
     time: new Date(Date.now() + this.offset)
@@ -26,16 +26,7 @@ export default class Clock extends Component {
 
   render() {
     return (
-      <>
-        <p>{this.props.city + ": " +this.state.time.toLocaleTimeString()}</p>
-        <div>{this.props.children}</div>
-        { this.props.fun ? (
-          <p>Funny town</p>
-        ):(
-          <p>Boring town</p>
-        )}
-        <br/>
-      </>
+        <h5>{this.state.time.toLocaleTimeString()}</h5>
     );
   }
 }
