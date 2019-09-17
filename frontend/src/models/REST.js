@@ -38,9 +38,8 @@ export default class Rest {
   }
 
   async save() {
-    this._id ? await customPut(`/rest/${type || this.name}`, this) 
+    return this._id ? await customPut(`/rest/${type || this.name}`, this) 
              : await customPost(`/rest/${type || this.name}`, this);
-    return this
   }
 
   async delete() {
