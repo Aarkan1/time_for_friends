@@ -39,9 +39,9 @@ export default class FriendDetails extends Component {
   render() {
     let f = this.state.friend;
     return (
-      <div>
+      <div className="row">
         <h3 className="center-align">{f.name}</h3>
-        <div>
+        <div className="col s12 m6 offset-m3">
           <div className="">{this.state.friend.timeOffset ? this.getLocaleTime() : ''}</div>
           <p>City: {f.city}</p>
           <p>Country: {f.country}</p>

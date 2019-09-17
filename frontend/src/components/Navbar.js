@@ -13,25 +13,23 @@ export default class Navbar extends Component {
         {/* Needs the sidenav element to be parallel with the navbar, 
             because of an overlay bug */}
         <div className="navbar-fixed">
-          <nav className="nav-wrapper light-blue darken-1">
+          <nav className="nav-wrapper orange lighten-1">
             <div className="container">
               <Link className="brand-logo" to="/">Time for friends</Link>
-              <p className="sidenav-trigger" data-target="mobile-links"><i className="material-icons">menu</i></p>
+              <a href="!#" className="sidenav-trigger" data-target="mobile-links"><i className="material-icons">menu</i></a>
               
               {/* desktop links */}
               <ul className="right hide-on-med-and-down">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/add-friend">Add Friend</Link></li>
-                <li><Link to="/friend/5d75f9ab9f405453784fb3c8">Show friend</Link></li>
               </ul>
             </div>
           </nav>
         </div>
         {/* hidden side menu that toggles on mobile */}
-        <ul className="sidenav" id="mobile-links">
+        <ul className="sidenav center-align" id="mobile-links">
           <li><Link onClick={() => this.closeSidenav() } to="/">Home</Link></li>
           <li><Link onClick={() => this.closeSidenav() } to="/add-friend">Add Friend</Link></li>
-          <li><Link onClick={() => this.closeSidenav() } to="/friend/5d75f9ab9f405453784fb3c8">Show friend</Link></li>
         </ul>
       </>
     );

@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -15,7 +18,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
+  background-color: #fafafa;
   main {
     flex: 1;
   }
@@ -25,6 +28,38 @@ nav {
   .brand-logo {
     font-size: 1.6rem !important;
   }
+}
+
+#mobile-links {
+  padding-top: 8vh;
+  li a{
+    font-size: 1.5rem;
+  }
+}
+
+#to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right:  20px;
+  i {
+    font-size: 2em;
+  }
+}
+
+#clock {
+  #clock-time {
+    margin: 0;
+  }
+  #clock-date {
+    margin: 0;
+  }
+}
+
+#main-day-icon {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  font-size: 3rem;
 }
 
 .card {
