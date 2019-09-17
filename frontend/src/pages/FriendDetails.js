@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import FriendCard from "../components/FriendCard";
 import Person from "../models/Person";
+import Clock from "../components/Clock";
 
 export default class FriendDetails extends Component {
   state = {
@@ -9,6 +9,10 @@ export default class FriendDetails extends Component {
       mailAddresses: []
     }
   };
+
+  getLocaleTime() {
+    return <Clock {...{ timeOffset: this.state.friend.timeOffset }} />;
+  }
 
   async componentDidMount() {
     let friend = await Person.findOne(this.props.match.params.id);
@@ -36,13 +40,17 @@ export default class FriendDetails extends Component {
     let f = this.state.friend;
     return (
       <div>
-        <h1>The friend page!</h1>
-        <p>id: {this.props.match.params.id}</p>
-        <p>Name: {f.name}</p>
-        <p>Phonenumbers</p>
-        {this.listPhoneNumbers(f.phoneNumbers)}
-        <p>Emails</p>
-        {this.listEmails(f.mailAddresses)}
+        <h3 className="center-align">{f.name}</h3>
+        <div>
+          <div className="">{this.state.friend.timeOffset ? this.getLocaleTime() : ''}</div>
+          <p>City: {f.city}</p>
+          <p>Country: {f.country}</p>
+          <p>Timezone: {f.timezone}</p>
+          <p>Phone numbers</p>
+          {this.listPhoneNumbers(f.phoneNumbers)}
+          <p>Emails</p>
+          {this.listEmails(f.mailAddresses)}
+        </div>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { sleep } from "../utilities/utils";
 
 export default class Clock extends Component {
-  offset = (this.props.timeOffset || 0) * 60 * 60 * 1000
+  offset = (this.props.timeOffset + (new Date().getTimezoneOffset() / 60) || 0)
   _isMounted = false;
   state = {
     time: new Date(Date.now() + this.offset)
@@ -11,6 +11,7 @@ export default class Clock extends Component {
   async updateTime() {
     while(this._isMounted) {
       this.setState({ time: new Date(Date.now() + this.offset) })
+      this.props.onUpdate && this.props.onUpdate(this.state.time)
       await sleep(500)
     }
   }
@@ -26,7 +27,10 @@ export default class Clock extends Component {
 
   render() {
     return (
-        <h5>{this.state.time.toLocaleTimeString()}</h5>
+      <span id="clock" className="center-align">
+        <h4 id="clock-time">{this.state.time.toLocaleTimeString()}</h4>
+        <h6 id="clock-date" className="grey-text">{this.state.time.toLocaleDateString()}</h6>
+      </span>
     );
   }
 }
