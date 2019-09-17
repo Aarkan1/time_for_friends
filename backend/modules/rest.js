@@ -103,6 +103,8 @@ module.exports = class Rest {
   }
 
   async resetDB() {
+    console.log('Resetting DB');
+    
     try {
       let results = await mongoose.model('Person').find({})
       results.map(p => p.delete())
@@ -113,9 +115,10 @@ module.exports = class Rest {
           if(err) {
             console.error(err);
           } else {
-            console.log("Created:", result);
+            // console.log("Created:", result);
           }
       })
+      console.log('Created new friends');
     })
     } catch (err){
       console.error('Error:', err);
