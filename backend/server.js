@@ -52,6 +52,10 @@ app.all("*", (req, res) => {
   res.status(404).send(`<h1>Page not find ${req.url}</h1>`);
 });
 
+if(process.argv.includes('reset-db')) {
+  Rest.resetDB()
+}
+
 function startWebServer() {
   // Starting webserver on port 3000
   app.listen(PORT, () => console.log("Listening on port", PORT));
