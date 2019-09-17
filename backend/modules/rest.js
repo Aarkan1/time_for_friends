@@ -6,13 +6,10 @@ module.exports = class Rest {
     this.post();
     this.put();
     this.delete();
-
-    // Uncomment below to reset database
-    // this.resetDB()
   }
-
+  
   get() {
-    this.app.get("/rest/:entity", async (req, res) => {
+     this.app.get("/rest/:entity", async (req, res) => {
       const query = JSON.parse(decodeURIComponent(req.query.q || '{}'), (key, val) => {
         return key === '$regex' ? this.backToRegEx(val) : val;
       })
@@ -102,7 +99,7 @@ module.exports = class Rest {
     );
   }
 
-  async resetDB() {
+  static async resetDB() {
     console.log('Resetting DB');
     
     try {
@@ -114,11 +111,9 @@ module.exports = class Rest {
         mongoose.model('Person').create(friend, async (err, result) => {
           if(err) {
             console.error(err);
-          } else {
-            // console.log("Created:", result);
-          }
+          } 
       })
-      console.log('Created new friends');
+      console.log('Created new friend');
     })
     } catch (err){
       console.error('Error:', err);
