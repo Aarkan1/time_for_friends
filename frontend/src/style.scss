@@ -22,10 +22,10 @@ body {
   main {
     flex: 1;
   }
-}  
+}
 
 .row {
-  margin-bottom: 0 !important;  
+  margin-bottom: 0 !important;
 }
 
 nav {
@@ -36,7 +36,7 @@ nav {
 
 #mobile-links {
   padding-top: 8vh;
-  li a{
+  li a {
     font-size: 1.5rem;
   }
 }
@@ -44,7 +44,7 @@ nav {
 #to-top-btn {
   position: fixed;
   bottom: 20px;
-  right:  20px;
+  right: 20px;
   i {
     font-size: 2em;
   }
@@ -53,13 +53,13 @@ nav {
 // switch for sorting with names or timezone
 .switch {
   label {
-    input[type=checkbox]+.lever {
+    input[type="checkbox"] + .lever {
       background-color: #ffe0b2 !important;
       &:after {
         background-color: #ffa726 !important;
       }
     }
-    input[type=checkbox]:checked+.lever {
+    input[type="checkbox"]:checked + .lever {
       background-color: #ffe0b2 !important;
       &:after {
         background-color: #ffa726 !important;
@@ -71,16 +71,18 @@ nav {
 .noUi-horizontal {
   height: 12px !important;
   background-color: #ffe0b2 !important;
-  .noUi-connect{
+  .noUi-connect {
     background-color: #ffb84e !important;
   }
-  .noUi-handle{
-    width:  22px;
+  .noUi-handle {
+    width: 22px;
     height: 22px;
+    right: -11px !important;
     border-radius: 50%;
     background-color: #ffa726 !important;
     box-shadow: none;
-    &:before, &:after {
+    &:before,
+    &:after {
       content: none;
     }
   }
@@ -88,7 +90,13 @@ nav {
     height: 10px;
   }
   .noUi-value-large {
-    font-size: .9em;
+    font-size: 0.9em;
+  }
+  .noUi-tooltip {
+    display: none;
+  }
+  .noUi-active .noUi-tooltip {
+    display: block;
   }
 }
 

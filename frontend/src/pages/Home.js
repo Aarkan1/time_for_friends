@@ -33,6 +33,19 @@ export default class Home extends Component {
       start: [0, 24],
       connect: true,
       step: 1,
+      tooltips: [wNumb({ 
+        mark: ':',
+        decimals: 2,
+        encoder: function( value ){
+          return Math.round(value);
+        } }),
+      wNumb({ 
+        mark: ':',
+        decimals: 2,
+        encoder: function( value ){
+          return Math.round(value);
+        } 
+      })],
       orientation: "horizontal",
       range: sliderRange,
       format: {
@@ -45,6 +58,7 @@ export default class Home extends Component {
       },
       pips: {
         mode: "range",
+        stepped: true,
         density: 4,
         format: wNumb({
           mark: ':',
@@ -184,11 +198,11 @@ export default class Home extends Component {
             </label>
           </div>
         </div>
-        <p>Sort by: {this.sortByNameSwitch()}</p>
         
         <div className="container" id="search-time-slider"></div>
         <br/>
         <br/>
+        <p>Sort by: {this.sortByNameSwitch()}</p>
         <div className="App-header row">{this.listFriends()}</div>
       </div>
     );
