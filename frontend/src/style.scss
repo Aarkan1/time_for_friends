@@ -46,6 +46,24 @@ nav {
   }
 }
 
+// switch for sorting with names or timezone
+.switch {
+  label {
+    input[type=checkbox]+.lever {
+      background-color: #aeaeae !important;
+      &:after {
+        background-color: #fafafa !important;
+      }
+    }
+    input[type=checkbox]:checked+.lever {
+      background-color: #aeaeae !important;
+      &:after {
+        background-color: #fafafa !important;
+      }
+    }
+  }
+}
+
 #clock {
   #clock-time {
     margin: 0;

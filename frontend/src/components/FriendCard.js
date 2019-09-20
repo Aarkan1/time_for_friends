@@ -72,6 +72,7 @@ export default class FriendCard extends Component {
                 <div className="col s6">
                   <p>{this.props.city}</p>
                   <p>{this.props.country}</p>
+                  <p>{this.props.timezone}</p>
                 </div>
                 <div className="col s6">{this.getLocaleTime()}</div>
               </div>

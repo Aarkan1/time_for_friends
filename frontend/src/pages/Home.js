@@ -7,7 +7,8 @@ export default class Home extends Component {
   state = {
     search: '',
     friends: [],
-    isNight: false
+    isNight: false,
+    sortName: true
   };
 
   componentDidMount() {
@@ -31,11 +32,30 @@ export default class Home extends Component {
   }
 
   listFriends() {
-    return this.state.friends.map((friend, i) => (
+    return this.state.friends
+    .map((friend, i) => (
       <div className="col s12 l6" key={friend.name + i}>
         <FriendCard {...friend} />
       </div>
-    ));
+    ))
+  }
+
+  sortByNameSwitch() {
+    return (
+      <div className="switch">
+        <label>
+          Name
+          <input type="checkbox" value={this.state.sortName} 
+            onChange={e => {
+              this.state.friends.sort((a, b) => !e.target.checked 
+                ? (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1) 
+                : (a.timezone < b.timezone ? -1 : 1))
+            }} />
+          <span className="lever"></span>
+          Timezone
+        </label>
+      </div>
+    )
   }
 
   render() {
@@ -56,6 +76,7 @@ export default class Home extends Component {
               onKeyUp={() => this.filterFriends()} id="search-query" />
             <label htmlFor="search-query">Search for friend</label>
           </div>
+          {this.sortByNameSwitch()}
         </div>
         <div className="App-header row">{this.listFriends()}</div>
       </div>
