@@ -101,6 +101,7 @@ module.exports = class Rest {
 
   static async resetDB() {
     console.log('Resetting DB');
+    let counter = 1;
     
     try {
       let results = await mongoose.model('Person').find({})
@@ -113,7 +114,7 @@ module.exports = class Rest {
             console.error(err);
           } 
       })
-      console.log('Created new friend');
+      console.log(`Created friend: ${counter++}/${friendsList.length}`);
     })
     } catch (err){
       console.error('Error:', err);

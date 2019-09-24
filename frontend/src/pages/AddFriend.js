@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Person from "../models/Person";
 import moment from "moment-timezone";
 import M from "materialize-css";
+import TimeSlider from "../components/TimeSlider";
 
 class AddFriend extends Component {
   state = {
@@ -11,7 +12,9 @@ class AddFriend extends Component {
     country: "",
     timezone: "Africa/Abidjan",
     phoneNumbers: "",
-    mailAddresses: ""
+    mailAddresses: "",
+    works: '0-0',
+    sleeps: '0-0'
   };
 
   async componentDidMount() {
@@ -59,7 +62,9 @@ class AddFriend extends Component {
       country: "",
       timezone: "",
       phoneNumbers: "",
-      mailAddresses: ""
+      mailAddresses: "",
+      works: '0-0',
+      sleeps: '0-0'
     });
     document.querySelector("#friend-emails").style.height = "0px";
     document.querySelector("#friend-phone").style.height = "0px";
@@ -77,6 +82,14 @@ class AddFriend extends Component {
         {zone}
       </option>
     ));
+  }
+
+  setWorkTime(time) {
+    this.setState({works: time.join('-')})
+  }
+  
+  setSleepTime(time) {
+    this.setState({sleeps: time.join('-')})
   }
 
   render() {
@@ -150,6 +163,11 @@ class AddFriend extends Component {
             />
             <label htmlFor="friend-emails">Email addresses</label>
           </div>
+          <p>Working time</p>
+          <TimeSlider divId="time-slider-work" initTime="9-17" onUpdate={time => this.setWorkTime(time)} />
+          <p>Sleeping time</p>
+          <TimeSlider divId="time-slider-sleep" initTime="6-22" onUpdate={time => this.setSleepTime(time)} />
+            <br/>
           <div className="row">
             <button
               type="button"

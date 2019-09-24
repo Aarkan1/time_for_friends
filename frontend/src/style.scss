@@ -54,13 +54,13 @@ nav {
 .switch {
   label {
     input[type="checkbox"] + .lever {
-      background-color: #ffe0b2 !important;
+      background-color: #faecd7 !important;
       &:after {
         background-color: #ffa726 !important;
       }
     }
     input[type="checkbox"]:checked + .lever {
-      background-color: #ffe0b2 !important;
+      background-color: #faecd7 !important;
       &:after {
         background-color: #ffa726 !important;
       }
@@ -69,10 +69,10 @@ nav {
 }
 
 .noUi-horizontal {
-  height: 12px !important;
-  background-color: #ffe0b2 !important;
+  height: 12px;
+  background-color: #faecd7;
   .noUi-connect {
-    background-color: #ffb84e !important;
+    background-color: #ffb84e;
   }
   .noUi-handle {
     width: 22px;
@@ -97,6 +97,13 @@ nav {
   }
   .noUi-active .noUi-tooltip {
     display: block;
+  }
+}
+
+#time-slider-sleep.noUi-horizontal {
+  background-color: #ffb84e !important;
+  .noUi-connect {
+    background-color: #faecd7 !important;
   }
 }
 

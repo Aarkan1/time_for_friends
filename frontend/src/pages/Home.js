@@ -40,6 +40,7 @@ export default class Home extends Component {
       let regex = new RegExp(this.state.search, "i");
       let friends = await Person.find({ [category]: regex }, { sort: "name" });
 
+      console.log(friends);
       this.context.setFriends(friends);
     }, 300);
   }
@@ -123,9 +124,7 @@ export default class Home extends Component {
             </label>
           </div>
         </div>
-        <TimeSlider onUpdate={time => this.timeFilter(time)} />
-        <br />
-        <br />
+        <TimeSlider divId="time-slider-filter-friends" onUpdate={time => this.timeFilter(time)} />
         <p>Sort by: {this.sortByNameSwitch()}</p>
         <div className="App-header row">{this.listFriends()}</div>
       </div>

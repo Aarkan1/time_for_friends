@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {FriendsContext} from '../contexts/FriendsContext'
+import { FriendsContext } from "../contexts/FriendsContext";
 import * as noUiSlider from "nouislider/distribute/nouislider.js";
 import wNumb from "wnumb";
 
@@ -19,10 +19,12 @@ export default class TimeSlider extends Component {
       max: [24]
     };
 
-    let slider = document.getElementById("search-time-slider");
+    let [start, end] = this.props.initTime ? this.props.initTime.split('-') : [0, 24]
+
+    let slider = document.getElementById(this.props.divId);
     noUiSlider
       .create(slider, {
-        start: [0, 24],
+        start: [start, end],
         connect: true,
         step: 1,
         tooltips: [
@@ -65,13 +67,19 @@ export default class TimeSlider extends Component {
   }
 
   timeFilter(value, i) {
-    let start = Math.round(value[0])
-    let end = Math.round(value[1])
-    
-    this.props.onUpdate([start, end])
+    let start = Math.round(value[0]);
+    let end = Math.round(value[1]);
+
+    this.props.onUpdate([start, end]);
   }
 
   render() {
-    return <div className="container" id="search-time-slider"></div>;
+    return (
+      <>
+        <div className="container" id={this.props.divId}></div>
+        <br />
+        <br />
+      </>
+    );
   }
 }
