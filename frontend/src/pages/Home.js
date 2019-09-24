@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {FriendsContext} from '../contexts/FriendsContext'
+import { FriendsContext } from "../contexts/FriendsContext";
 import FriendCard from "../components/FriendCard";
 import Clock from "../components/Clock";
 import TimeSlider from "../components/TimeSlider";
@@ -9,7 +9,6 @@ export default class Home extends Component {
   static contextType = FriendsContext;
   state = {
     search: "",
-    filteredTime: [0, 24],
     isNight: false,
     sortName: true,
     searchByTimezone: false
@@ -19,13 +18,19 @@ export default class Home extends Component {
     this.filterFriends();
   }
 
+  timeFilter(time) {
+    const { setFilteredTime } = this.context;
+    let start, end;
+    start = time[0];
+    end = time[1];
+    setFilteredTime([start, end]);
+  }
+
   setNight(e) {
     this.setState({
       isNight: e
     });
   }
-
-  timeFilter() {}
 
   filterFriends() {
     let category = this.state.searchByTimezone ? "timezone" : "name";
@@ -36,14 +41,11 @@ export default class Home extends Component {
       let friends = await Person.find({ [category]: regex }, { sort: "name" });
 
       this.context.setFriends(friends);
-      // this.context.addManyFriend(friends);
-      // this.setState({ friends, filteredFriends: friends });
-      this.timeFilter();
     }, 300);
   }
 
   listFriends() {
-    let {filteredFriends} = this.context;
+    let { filteredFriends } = this.context;
     return filteredFriends.map((friend, i) => (
       <div className="col s12 l6" key={friend.name + i}>
         <FriendCard {...friend} />
@@ -60,8 +62,7 @@ export default class Home extends Component {
             type="checkbox"
             value={this.state.sortName}
             onChange={e => {
-              this.context.sortFriends(e.target.checked)
-              this.timeFilter();
+              this.context.sortFriends(e.target.checked);
             }}
           />
           <span className="lever"></span>
@@ -122,7 +123,7 @@ export default class Home extends Component {
             </label>
           </div>
         </div>
-        <TimeSlider />
+        <TimeSlider onUpdate={time => this.timeFilter(time)} />
         <br />
         <br />
         <p>Sort by: {this.sortByNameSwitch()}</p>

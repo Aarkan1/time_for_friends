@@ -2,13 +2,9 @@ import React, { Component } from "react";
 import {FriendsContext} from '../contexts/FriendsContext'
 import * as noUiSlider from "nouislider/distribute/nouislider.js";
 import wNumb from "wnumb";
-import moment from "moment-timezone";
 
 export default class TimeSlider extends Component {
   static contextType = FriendsContext;
-  state = {
-    filteredTime: [0, 24]
-  };
 
   componentDidMount() {
     this.initSlider();
@@ -69,26 +65,10 @@ export default class TimeSlider extends Component {
   }
 
   timeFilter(value, i) {
-    let start, end;
-    if (value) {
-      start = Math.round(value[0]);
-      end = Math.round(value[1]);
-    } else {
-      start = this.state.filteredTime[0];
-      end = this.state.filteredTime[1];
-    }
-    this.setState({ filteredTime: [start, end] });
-
-    const {friends, filterFriends} = this.context;
-
-    let filteredFriends = friends.filter(friend => {
-      let offset = friend.timeOffset - moment().utcOffset() * 60 * 1000 || 0;
-      let time = new Date(Date.now() + offset);
-      let hour = time.getHours();
-      return hour >= start && hour <= end;
-    });
-
-    filterFriends(filteredFriends);
+    let start = Math.round(value[0])
+    let end = Math.round(value[1])
+    
+    this.props.onUpdate([start, end])
   }
 
   render() {

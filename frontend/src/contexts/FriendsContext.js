@@ -1,4 +1,5 @@
 import React, { Component, createContext } from "react";
+import moment from "moment-timezone";
 
 export const FriendsContext = createContext();
 
@@ -6,14 +7,27 @@ export default class FriendsContextProvider extends Component {
   state = {
     friends: [],
     filteredFriends: [],
+    filteredTime: [0, 24],
     addManyFriend: friends => this.addManyFriend(friends),
     setFriends: friends => this.setFriends(friends),
-    filterFriends: friends => this.filterFriends(friends),
+    setFilteredTime: time => this.setFilteredTime(time),
     addFriend: friend => this.addFriend(friend),
     sortFriends: checked => this.sortFriends(checked)
   };
 
-  filterFriends(filteredFriends) {
+  setFilteredTime(time) {
+    this.setState({ filteredTime: [...time] });
+    this.filterFriends();
+  }
+
+  filterFriends() {
+    const { filteredTime, friends } = this.state
+    let filteredFriends = friends.filter(friend => {
+      let offset = friend.timeOffset - moment().utcOffset() * 60 * 1000 || 0;
+      let time = new Date(Date.now() + offset);
+      let hour = time.getHours();
+      return hour >= filteredTime[0] && hour <= filteredTime[1];
+    });
     this.setState({ filteredFriends });
   }
 
@@ -23,9 +37,8 @@ export default class FriendsContextProvider extends Component {
 
   addFriend(friend) {
     // don't duplicate friends
-    if(this.state.friends.filter(f => f._id === friend._id).length) return;
+    if (this.state.friends.filter(f => f._id === friend._id).length) return;
 
-    console.log('adding friend:', friend);
     let friends = [...this.state.friends, friend];
     this.setState({ friends, filteredFriends: friends });
   }
@@ -44,6 +57,7 @@ export default class FriendsContextProvider extends Component {
         ? -1
         : 1
     );
+    this.filterFriends();
   }
 
   render() {
