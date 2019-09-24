@@ -49,7 +49,7 @@ app.get("/about", (req, res) => {
 
 app.all("*", (req, res) => {
   res.setHeader("Content-Type", "text/html");
-  res.status(404).send(`<h1>Page not find ${req.url}</h1>`);
+  res.status(404).send(`<h1>Page not found ${req.url}</h1>`);
 });
 
 if(process.argv.includes('reset-db')) {

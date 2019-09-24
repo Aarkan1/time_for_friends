@@ -1,16 +1,14 @@
 import React, { Component } from "react";
+import {FriendsContext} from '../contexts/FriendsContext'
 import FriendCard from "../components/FriendCard";
 import Clock from "../components/Clock";
+import TimeSlider from "../components/TimeSlider";
 import Person from "../models/Person";
-import * as noUiSlider from "nouislider/distribute/nouislider.js";
-import wNumb from 'wnumb'
-import moment from 'moment-timezone'
 
 export default class Home extends Component {
+  static contextType = FriendsContext;
   state = {
     search: "",
-    friends: [],
-    filteredFriends: [],
     filteredTime: [0, 24],
     isNight: false,
     sortName: true,
@@ -19,75 +17,6 @@ export default class Home extends Component {
 
   componentDidMount() {
     this.filterFriends();
-
-    let sliderRange = {
-      'min': [ 0 ],
-      '25%': [ 6 ],
-      '50%': [ 12 ],
-      '75%': [ 18 ],
-      'max': [ 24 ]
-    };
-
-    let slider = document.getElementById("search-time-slider");
-    noUiSlider.create(slider, {
-      start: [0, 24],
-      connect: true,
-      step: 1,
-      tooltips: [wNumb({ 
-        mark: ':',
-        decimals: 2,
-        encoder: function( value ){
-          return Math.round(value);
-        } }),
-      wNumb({ 
-        mark: ':',
-        decimals: 2,
-        encoder: function( value ){
-          return Math.round(value);
-        } 
-      })],
-      orientation: "horizontal",
-      range: sliderRange,
-      format: {
-        to: (value) => {
-          return value;
-        },
-        from: (value) => {
-          return Number(value)
-        }
-      },
-      pips: {
-        mode: "range",
-        stepped: true,
-        density: 4,
-        format: wNumb({
-          mark: ':',
-          decimals: 2
-      })
-      }
-    }).on('update', (v, i) => this.timeFilter(v, i))
-  }
-
-  timeFilter(value, i) {
-    let start, end;
-    if(value) {
-      start = Math.round(value[0])
-      end =   Math.round(value[1])
-    } else {
-      start = this.state.filteredTime[0]
-      end =   this.state.filteredTime[1]
-    }
-    
-    let filteredFriends = this.state.friends.filter(friend => {
-      let offset = (friend.timeOffset - moment().utcOffset() * 60 * 1000 || 0)
-      let time = new Date(Date.now() + offset)
-      let hour = time.getHours();
-      return hour >= start && hour <= end
-    })
-
-
-    this.setState({ filteredFriends,
-    filteredTime: [start, end] })
   }
 
   setNight(e) {
@@ -96,6 +25,8 @@ export default class Home extends Component {
     });
   }
 
+  timeFilter() {}
+
   filterFriends() {
     let category = this.state.searchByTimezone ? "timezone" : "name";
 
@@ -103,16 +34,17 @@ export default class Home extends Component {
     this.throttleSearch = setTimeout(async () => {
       let regex = new RegExp(this.state.search, "i");
       let friends = await Person.find({ [category]: regex }, { sort: "name" });
-      this.setState({ friends, 
-        filteredFriends: friends });
-      this.timeFilter()
 
-      console.log(friends);
+      this.context.setFriends(friends);
+      // this.context.addManyFriend(friends);
+      // this.setState({ friends, filteredFriends: friends });
+      this.timeFilter();
     }, 300);
   }
 
   listFriends() {
-    return this.state.filteredFriends.map((friend, i) => (
+    let {filteredFriends} = this.context;
+    return filteredFriends.map((friend, i) => (
       <div className="col s12 l6" key={friend.name + i}>
         <FriendCard {...friend} />
       </div>
@@ -128,16 +60,8 @@ export default class Home extends Component {
             type="checkbox"
             value={this.state.sortName}
             onChange={e => {
-              this.state.friends.sort((a, b) =>
-                !e.target.checked
-                  ? a.name.toLowerCase() < b.name.toLowerCase()
-                    ? -1
-                    : 1
-                  : a.timezone < b.timezone
-                  ? -1
-                  : 1
-              );
-            this.timeFilter()
+              this.context.sortFriends(e.target.checked)
+              this.timeFilter();
             }}
           />
           <span className="lever"></span>
@@ -198,10 +122,9 @@ export default class Home extends Component {
             </label>
           </div>
         </div>
-        
-        <div className="container" id="search-time-slider"></div>
-        <br/>
-        <br/>
+        <TimeSlider />
+        <br />
+        <br />
         <p>Sort by: {this.sortByNameSwitch()}</p>
         <div className="App-header row">{this.listFriends()}</div>
       </div>
