@@ -8,17 +8,12 @@ export default class FriendsContextProvider extends Component {
     friends: [],
     filteredFriends: [],
     filteredTime: [0, 24]
-    // addManyFriend: friends => this.addManyFriend(friends),
-    // setFriends: friends => this.setFriends(friends),
-    // setFilteredTime: time => this.setFilteredTime(time),
-    // addFriend: friend => this.addFriend(friend),
-    // sortFriends: checked => this.sortFriends(checked)
   };
 
   methodsFactory() {
     const ignoreMethods = ["constructor", "componentDidMount", "render", "methodsFactory"];
     const methods = Object.keys(Object.getOwnPropertyDescriptors(this.constructor.prototype))
-    .filter(m => !ignoreMethods.includes(m));
+      .filter(m => !ignoreMethods.includes(m));
     
     return Object.assign({}, ...methods.map(method => ({ [method]: event => this[method](event) })))
   }
@@ -41,6 +36,9 @@ export default class FriendsContextProvider extends Component {
 
   setFriends(friends) {
     this.setState({ friends, filteredFriends: friends });
+    setTimeout(() => {
+      this.sortFriends(false);
+    }, 5);
   }
 
   addFriend(friend) {

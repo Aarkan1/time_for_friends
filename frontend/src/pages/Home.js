@@ -39,8 +39,6 @@ export default class Home extends Component {
     this.throttleSearch = setTimeout(async () => {
       let regex = new RegExp(this.state.search, "i");
       let friends = await Person.find({ [category]: regex }, { sort: "name" });
-
-      console.log(friends);
       this.context.setFriends(friends);
     }, 300);
   }
@@ -81,9 +79,12 @@ export default class Home extends Component {
             type="checkbox"
             className="filled-in"
             checked={this.state.searchByTimezone}
-            onChange={e =>
+            onChange={e => {
               this.setState({ searchByTimezone: e.target.checked })
-            }
+              setTimeout(() => {
+                this.filterFriends()
+              }, 5);
+            }}
           />
           <span id="timezone-checkbox-span"></span>
         </label>
