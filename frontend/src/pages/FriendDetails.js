@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { FriendsContext } from "../contexts/FriendsContext";
 import Person from "../models/Person";
 import Clock from "../components/Clock";
 
 export default class FriendDetails extends Component {
+  static contextType = FriendsContext;
   state = {
     friend: {
       phoneNumbers: [],
@@ -15,8 +17,9 @@ export default class FriendDetails extends Component {
   }
 
   async componentDidMount() {
-    let friend = await Person.findOne(this.props.match.params.id);
-    console.log(friend);
+    const id = this.props.match.params.id;
+    // load saved friend, or fetch from DB
+    let friend = this.context.friends.filter(f => f._id === id)[0] || await Person.findOne(id);
     this.setState({ friend });
   }
 
