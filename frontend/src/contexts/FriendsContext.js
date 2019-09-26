@@ -7,13 +7,21 @@ export default class FriendsContextProvider extends Component {
   state = {
     friends: [],
     filteredFriends: [],
-    filteredTime: [0, 24],
-    addManyFriend: friends => this.addManyFriend(friends),
-    setFriends: friends => this.setFriends(friends),
-    setFilteredTime: time => this.setFilteredTime(time),
-    addFriend: friend => this.addFriend(friend),
-    sortFriends: checked => this.sortFriends(checked)
+    filteredTime: [0, 24]
+    // addManyFriend: friends => this.addManyFriend(friends),
+    // setFriends: friends => this.setFriends(friends),
+    // setFilteredTime: time => this.setFilteredTime(time),
+    // addFriend: friend => this.addFriend(friend),
+    // sortFriends: checked => this.sortFriends(checked)
   };
+
+  methodsFactory() {
+    const ignoreMethods = ["constructor", "componentDidMount", "render", "methodsFactory"];
+    const methods = Object.keys(Object.getOwnPropertyDescriptors(this.constructor.prototype))
+    .filter(m => !ignoreMethods.includes(m));
+    
+    return Object.assign({}, ...methods.map(method => ({ [method]: event => this[method](event) })))
+  }
 
   setFilteredTime(time) {
     this.setState({ filteredTime: [...time] });
@@ -21,7 +29,7 @@ export default class FriendsContextProvider extends Component {
   }
 
   filterFriends() {
-    const { filteredTime, friends } = this.state
+    const { filteredTime, friends } = this.state;
     let filteredFriends = friends.filter(friend => {
       let offset = friend.timeOffset - moment().utcOffset() * 60 * 1000 || 0;
       let time = new Date(Date.now() + offset);
@@ -48,21 +56,16 @@ export default class FriendsContextProvider extends Component {
   }
 
   sortFriends(checked) {
-    this.state.friends.sort((a, b) =>
-      !checked
-        ? a.name.toLowerCase() < b.name.toLowerCase()
-          ? -1
-          : 1
-        : a.timezone < b.timezone
-        ? -1
-        : 1
+    this.state.friends.sort((a, b) => !checked
+        ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+        : a.timezone < b.timezone ? -1 : 1
     );
     this.filterFriends();
   }
 
   render() {
     return (
-      <FriendsContext.Provider value={{ ...this.state }}>
+      <FriendsContext.Provider value={{ ...this.state, ...this.methodsFactory() }}>
         {this.props.children}
       </FriendsContext.Provider>
     );
