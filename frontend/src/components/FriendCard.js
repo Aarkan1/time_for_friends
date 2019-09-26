@@ -22,36 +22,21 @@ export default class FriendCard extends Component {
     );
   }
 
-  isSleeping() {
-    let sleeps = this.props.sleeps.split("-");
-    let start = sleeps[0].split(":");
-    let startTime = parseInt(start[0]) + parseInt(start[1]) * 0.01;
-    let stop = sleeps[1].split(":");
-    let stopTime = parseInt(stop[0]) + parseInt(stop[1]) * 0.01;
+  availability() {
+    if(!this.props.works && !this.props.sleeps) return;
 
-    let today = new Date();
-    let time = today.getHours() + today.getMinutes() * 0.01;
+    let [workStart, workEnd] = this.props.works.split('-');
+    let [sleepStart, sleepEnd] = this.props.sleeps.split('-');
+    const localeHour = new Date(Date.now() + this.props.timeOffset).getHours();
 
-    console.log(
-      `${time}, ${startTime}, ${stopTime}, `,
-      time > startTime && time < stopTime
-    );
+    const isWorking = workStart < localeHour && workEnd > localeHour;
+    const isSleeping = sleepEnd > localeHour || sleepStart < localeHour;
 
-    //   let sleeps = props.sleeps.split('-')
-    //   let start = sleeps[0].split(':')
-    //   let startTime = new Date();
-    //   startTime.setHours(start[0] / 1)
-    //   startTime.setMinutes(start[1] / 1)
-    //   console.log(startTime, startTime.getMilliseconds() < Date.now());
-    //   let stop = sleeps[1].split(':')
-    //   let stopTime = new Date();
-    //   stopTime.setDate(new Date().getDate() + 1)
-    //   stopTime.setHours(stop[0] / 1)
-    //   stopTime.setMinutes(start[1] / 1)
-    //   console.log(stopTime, stopTime.getMilliseconds() > Date.now());
+    return (isWorking ? <i className="material-icons right">emoji_transportation</i> 
+          : isSleeping ? <i className="material-icons right">snooze</i> 
+          : <i className="material-icons right">mood</i>)
   }
 
-  //   isSleeping()
   render() {
     return (
       <Route
@@ -62,6 +47,7 @@ export default class FriendCard extends Component {
           >
             <div className="card-content">
               <div className="card-title">{this.props.name}
+                {this.availability()}
                   <i className={this.state.isNight 
                     ? 'material-icons right blue-text text-darken-3' 
                     : 'material-icons right orange-text'}>

@@ -1,21 +1,25 @@
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom';
+import { FriendsContext } from "../contexts/FriendsContext";
 import Person from "../models/Person";
-import moment from "moment-timezone";
 import M from "materialize-css";
 import TimeSlider from "../components/TimeSlider";
+import ct from 'countries-and-timezones'
 
 class AddFriend extends Component {
-  state = {
+  static contextType = FriendsContext;
+  defaultFriend = {
     name: "",
     city: "",
-    country: "",
-    timezone: "Africa/Abidjan",
+    country: "Sweden",
+    countryCode: "SE",
+    timezone: "Europe/Stockholm",
     phoneNumbers: "",
     mailAddresses: "",
-    works: '0-0',
-    sleeps: '0-0'
-  };
+    works: '9-17',
+    sleeps: '6-22'
+  }
+  state = {...this.defaultFriend};
 
   async componentDidMount() {
     M.FormSelect.init(document.querySelectorAll("select"));
@@ -45,27 +49,13 @@ class AddFriend extends Component {
       phoneNumbers: this.state.phoneNumbers.split("\n"),
       mailAddresses: this.state.mailAddresses.split("\n")
     });
-    console.log(friend);
-
     let person = new Person(friend);
     person = await person.save()
-    console.log(person);
-    
-
     this.props.history.push('/friend/' + person._id)
   }
 
   clearFields() {
-    this.setState({
-      name: "",
-      city: "",
-      country: "",
-      timezone: "",
-      phoneNumbers: "",
-      mailAddresses: "",
-      works: '0-0',
-      sleeps: '0-0'
-    });
+    this.setState({...this.defaultFriend});
     document.querySelector("#friend-emails").style.height = "0px";
     document.querySelector("#friend-phone").style.height = "0px";
   }
@@ -76,8 +66,25 @@ class AddFriend extends Component {
     this.setState({ phoneNumbers: numbers });
   }
 
+  countryList() {
+    return Object.values(ct.getAllCountries()).map(country => (
+      <option key={country.id} value={JSON.stringify(country)}>
+        {country.name}
+      </option>
+    ));
+  }
+
+  countryListChange(e) {
+    let country = JSON.parse(e.target.value)
+    this.setState({ countryCode: country.id, country: country.name })
+
+    setTimeout(() => {
+      M.FormSelect.init(document.querySelector("#timezone-list"));
+    }, 5);
+  }
+
   timezoneList() {
-    return moment.tz.names().map(zone => (
+    return ct.getAllCountries()[this.state.countryCode].timezones.map(zone => (
       <option key={zone} value={zone}>
         {zone}
       </option>
@@ -89,7 +96,7 @@ class AddFriend extends Component {
   }
   
   setSleepTime(time) {
-    this.setState({sleeps: time.join('-')})
+    this.setState({sleeps: time.reverse().join('-')})
   }
 
   render() {
@@ -123,17 +130,17 @@ class AddFriend extends Component {
           </div>
           <div className="input-field">
             <i className="material-icons prefix">emoji_flags</i>
-            <input
-              type="text"
-              id="friend-country"
-              value={this.state.country}
-              onChange={e => this.setState({ country: e.target.value })}
-            />
-            <label htmlFor="friend-country">Country</label>
+            <select
+              defaultValue={'{"id":"SE","name":"Sweden","timezones":["Europe/Stockholm"]}'}
+              onChange={e => this.countryListChange(e)}>
+              {this.countryList()}
+            </select>
+            <label>Country</label>
           </div>
           <div className="input-field">
             <i className="material-icons prefix">schedule</i>
             <select
+            id="timezone-list"
               value={this.state.timezone}
               onChange={e => this.setState({ timezone: e.target.value })}
             >
@@ -163,9 +170,15 @@ class AddFriend extends Component {
             />
             <label htmlFor="friend-emails">Email addresses</label>
           </div>
-          <p>Working time</p>
+          <div className="row valign-wrapper">
+            <i className="material-icons col">emoji_transportation</i>
+            <p className="col">Working time</p>
+          </div>
           <TimeSlider divId="time-slider-work" initTime="9-17" onUpdate={time => this.setWorkTime(time)} />
-          <p>Sleeping time</p>
+          <div className="row valign-wrapper">
+            <i className="material-icons col">snooze</i>
+            <p className="col">Sleeping time</p>
+          </div>
           <TimeSlider divId="time-slider-sleep" initTime="6-22" onUpdate={time => this.setSleepTime(time)} />
             <br/>
           <div className="row">
