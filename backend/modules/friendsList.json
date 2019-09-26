@@ -5,7 +5,9 @@
     "country": "Pakistan",
     "timezone": "Asia/Karachi",
     "phoneNumbers": ["282 787 9652"],
-    "mailAddresses": ["cdybald0@mapy.cz"]
+    "mailAddresses": ["cdybald0@mapy.cz"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Serene Chewter",
@@ -13,7 +15,9 @@
     "country": "China",
     "timezone": "Asia/Choibalsan",
     "phoneNumbers": ["825 209 4953"],
-    "mailAddresses": ["schewter1@amazonaws.com"]
+    "mailAddresses": ["schewter1@amazonaws.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Alena Crellim",
@@ -21,7 +25,9 @@
     "country": "Syria",
     "timezone": "Asia/Damascus",
     "phoneNumbers": ["186 231 1260"],
-    "mailAddresses": ["acrellim2@people.com.cn"]
+    "mailAddresses": ["acrellim2@people.com.cn"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Elwin Eadington",
@@ -29,7 +35,9 @@
     "country": "Yemen",
     "timezone": "Asia/Aqtobe",
     "phoneNumbers": ["608 783 0775"],
-    "mailAddresses": ["eeadington3@yellowpages.com"]
+    "mailAddresses": ["eeadington3@yellowpages.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Miriam Blackley",
@@ -37,7 +45,9 @@
     "country": "Iran",
     "timezone": "Asia/Tehran",
     "phoneNumbers": ["979 957 1694"],
-    "mailAddresses": ["mblackley4@hubpages.com"]
+    "mailAddresses": ["mblackley4@hubpages.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Susanne Beddows",
@@ -45,7 +55,9 @@
     "country": "China",
     "timezone": "Asia/Shanghai",
     "phoneNumbers": ["227 321 1395"],
-    "mailAddresses": ["sbeddows5@gmpg.org"]
+    "mailAddresses": ["sbeddows5@gmpg.org"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Thorny Farn",
@@ -53,7 +65,9 @@
     "country": "Ukraine",
     "timezone": "Europe/Zurich",
     "phoneNumbers": ["428 962 2006"],
-    "mailAddresses": ["tfarn6@nature.com"]
+    "mailAddresses": ["tfarn6@nature.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Tymothy Ahrendsen",
@@ -61,7 +75,9 @@
     "country": "Indonesia",
     "timezone": "Asia/Jakarta",
     "phoneNumbers": ["126 126 9678"],
-    "mailAddresses": ["tahrendsen7@elegantthemes.com"]
+    "mailAddresses": ["tahrendsen7@elegantthemes.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Thorstein Kinnar",
@@ -69,7 +85,9 @@
     "country": "China",
     "timezone": "Asia/Choibalsan",
     "phoneNumbers": ["708 731 4562"],
-    "mailAddresses": ["tkinnar8@sbwire.com"]
+    "mailAddresses": ["tkinnar8@sbwire.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Jedd Mc Kellen",
@@ -77,7 +95,9 @@
     "country": "Bangladesh",
     "timezone": "Asia/Dhaka",
     "phoneNumbers": ["571 738 4818"],
-    "mailAddresses": ["jmc9@apache.org"]
+    "mailAddresses": ["jmc9@apache.org"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Shirlee Saddington",
@@ -85,7 +105,9 @@
     "country": "Finland",
     "timezone": "Europe/Helsinki",
     "phoneNumbers": ["500 737 1998"],
-    "mailAddresses": ["ssaddingtona@oaic.gov.au"]
+    "mailAddresses": ["ssaddingtona@oaic.gov.au"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Marv Alishoner",
@@ -93,7 +115,9 @@
     "country": "Brazil",
     "timezone": "America/Sao_Paulo",
     "phoneNumbers": ["345 235 2799"],
-    "mailAddresses": ["malishonerb@biglobe.ne.jp"]
+    "mailAddresses": ["malishonerb@biglobe.ne.jp"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Joycelin Roddick",
@@ -101,7 +125,9 @@
     "country": "Portugal",
     "timezone": "Europe/Lisbon",
     "phoneNumbers": ["367 630 0032"],
-    "mailAddresses": ["jroddickc@aol.com"]
+    "mailAddresses": ["jroddickc@aol.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Damaris Snalum",
@@ -109,7 +135,9 @@
     "country": "Philippines",
     "timezone": "Asia/Manila",
     "phoneNumbers": ["595 296 0156"],
-    "mailAddresses": ["dsnalumd@comsenz.com"]
+    "mailAddresses": ["dsnalumd@comsenz.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Saundra Fend",
@@ -117,7 +145,9 @@
     "country": "Philippines",
     "timezone": "Asia/Manila",
     "phoneNumbers": ["339 439 8152"],
-    "mailAddresses": ["sfende@army.mil"]
+    "mailAddresses": ["sfende@army.mil"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Sabina Ewence",
@@ -125,7 +155,9 @@
     "country": "Indonesia",
     "timezone": "Asia/Jakarta",
     "phoneNumbers": ["114 577 3711"],
-    "mailAddresses": ["sewencef@yolasite.com"]
+    "mailAddresses": ["sewencef@yolasite.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Karlik Chesher",
@@ -133,7 +165,9 @@
     "country": "Indonesia",
     "timezone": "Asia/Makassar",
     "phoneNumbers": ["519 173 8952"],
-    "mailAddresses": ["kchesherg@dyndns.org"]
+    "mailAddresses": ["kchesherg@dyndns.org"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Simona Patriskson",
@@ -141,7 +175,9 @@
     "country": "China",
     "timezone": "Asia/Shanghai",
     "phoneNumbers": ["336 242 3855"],
-    "mailAddresses": ["spatrisksonh@timesonline.co.uk"]
+    "mailAddresses": ["spatrisksonh@timesonline.co.uk"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Bernette Skentelbury",
@@ -149,7 +185,9 @@
     "country": "Indonesia",
     "timezone": "Asia/Makassar",
     "phoneNumbers": ["523 562 1083"],
-    "mailAddresses": ["bskentelburyi@reddit.com"]
+    "mailAddresses": ["bskentelburyi@reddit.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
   },
   {
     "name": "Noby De la Eglise",
@@ -157,6 +195,208 @@
     "country": "Ethiopia",
     "timezone": "Africa/Abidjan",
     "phoneNumbers": ["488 886 0168"],
-    "mailAddresses": ["ndej@ox.ac.uk"]
+    "mailAddresses": ["ndej@ox.ac.uk"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Chane Font",
+    "city": "Carazinho",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["847 830 9011"],
+    "mailAddresses": ["cfont0@scribd.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Arlana Kloster",
+    "city": "Corpus Christi",
+    "country": "United States",
+    "timezone": "America/Chicago",
+    "phoneNumbers": ["361 568 6685"],
+    "mailAddresses": ["akloster1@fastcompany.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Ferdinande Songust",
+    "city": "São Gabriel da Cachoeira",
+    "country": "Brazil",
+    "timezone": "America/Manaus",
+    "phoneNumbers": ["366 542 1406"],
+    "mailAddresses": ["fsongust2@wordpress.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Linoel Cranidge",
+    "city": "Patrocínio",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["808 118 1982"],
+    "mailAddresses": ["lcranidge3@baidu.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Booth Kimberley",
+    "city": "Philadelphia",
+    "country": "United States",
+    "timezone": "America/New_York",
+    "phoneNumbers": ["267 577 5983"],
+    "mailAddresses": ["bkimberley4@mapy.cz"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Alanah Meaden",
+    "city": "Trindade",
+    "country": "Brazil",
+    "timezone": "America/Recife",
+    "phoneNumbers": ["594 257 6107"],
+    "mailAddresses": ["ameaden5@slideshare.net"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Thurston Piens",
+    "city": "Logan Lake",
+    "country": "Canada",
+    "timezone": "America/Vancouver",
+    "phoneNumbers": ["436 134 3700"],
+    "mailAddresses": ["tpiens6@wix.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Conny Furness",
+    "city": "Blainville",
+    "country": "Canada",
+    "timezone": "America/Montreal",
+    "phoneNumbers": ["893 908 6969"],
+    "mailAddresses": ["cfurness7@nifty.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Vivien Boc",
+    "city": "Itambacuri",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["722 433 0973"],
+    "mailAddresses": ["vboc8@godaddy.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Lurleen Unstead",
+    "city": "San Francisco",
+    "country": "United States",
+    "timezone": "America/Los_Angeles",
+    "phoneNumbers": ["415 414 2770"],
+    "mailAddresses": ["lunstead9@jigsy.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Rodd Uccelli",
+    "city": "Salt Lake City",
+    "country": "United States",
+    "timezone": "America/Denver",
+    "phoneNumbers": ["801 460 3322"],
+    "mailAddresses": ["ruccellia@istockphoto.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Fidelity Borman",
+    "city": "Contagem",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["810 542 6612"],
+    "mailAddresses": ["fbormanb@merriam-webster.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Lynnett Trighton",
+    "city": "Naples",
+    "country": "United States",
+    "timezone": "America/New_York",
+    "phoneNumbers": ["941 236 0191"],
+    "mailAddresses": ["ltrightonc@unesco.org"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Doll Shakespeare",
+    "city": "Florianópolis",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["636 793 1432"],
+    "mailAddresses": ["dshakespeared@icq.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Wain Pardon",
+    "city": "Pará de Minas",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["544 764 8154"],
+    "mailAddresses": ["wpardone@phoca.cz"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Madeleine Mc Faul",
+    "city": "Anmore",
+    "country": "Canada",
+    "timezone": "America/Vancouver",
+    "phoneNumbers": ["714 401 4906"],
+    "mailAddresses": ["mmcf@deviantart.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Leontine Blaszczynski",
+    "city": "Novo Aripuanã",
+    "country": "Brazil",
+    "timezone": "America/Manaus",
+    "phoneNumbers": ["396 927 7447"],
+    "mailAddresses": ["lblaszczynskig@dagondesign.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Khalil Grigorescu",
+    "city": "Cacequi",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["815 855 9153"],
+    "mailAddresses": ["kgrigorescuh@nhs.uk"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Garrick Rulten",
+    "city": "Janaúba",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["615 156 7226"],
+    "mailAddresses": ["grulteni@4shared.com"],
+    "works": "9-17",
+    "sleeps": "22-6"
+  },
+  {
+    "name": "Nataline Soan",
+    "city": "Aimorés",
+    "country": "Brazil",
+    "timezone": "America/Sao_Paulo",
+    "phoneNumbers": ["942 207 1831"],
+    "mailAddresses": ["nsoanj@senate.gov"],
+    "works": "9-17",
+    "sleeps": "22-6"
   }
 ]
