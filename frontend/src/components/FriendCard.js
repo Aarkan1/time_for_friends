@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Clock from "./Clock";
 import { Route } from "react-router-dom";
+import { availabilityIcon } from '../utilities/utils'
 
 export default class FriendCard extends Component {
   state = {
@@ -22,21 +23,6 @@ export default class FriendCard extends Component {
     );
   }
 
-  availability() {
-    if(!this.props.works && !this.props.sleeps) return;
-
-    let [workStart, workEnd] = this.props.works.split('-');
-    let [sleepStart, sleepEnd] = this.props.sleeps.split('-');
-    const localeHour = new Date(Date.now() + this.props.timeOffset).getHours();
-
-    const isWorking = workStart < localeHour && workEnd > localeHour;
-    const isSleeping = sleepEnd > localeHour || sleepStart < localeHour;
-
-    return (isWorking ? <i className="material-icons right">emoji_transportation</i> 
-          : isSleeping ? <i className="material-icons right">snooze</i> 
-          : <i className="material-icons right">mood</i>)
-  }
-
   render() {
     return (
       <Route
@@ -47,7 +33,7 @@ export default class FriendCard extends Component {
           >
             <div className="card-content">
               <div className="card-title">{this.props.name}
-                {this.availability()}
+                {availabilityIcon(this.props)}
                   <i className={this.state.isNight 
                     ? 'material-icons right blue-text text-darken-3' 
                     : 'material-icons right orange-text'}>
