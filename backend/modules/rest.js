@@ -1,3 +1,5 @@
+const validate = require('../utilities/utils')
+
 module.exports = class Rest {
   constructor(app) {
     this.app = app;
@@ -43,6 +45,11 @@ module.exports = class Rest {
 
   post() {
     this.app.post("/rest/:entity", (req, res) => {
+      if(req.params.entity === 'Person' && !validate(req.body)) {
+        res.status(400).json({ error: 'Person did not validate!' });
+        return;
+      }
+      
       mongoose.model(req.params.entity).create(req.body, async (err, result) => {
         if(err) {
           console.error(err);
@@ -57,6 +64,10 @@ module.exports = class Rest {
 
   put() {
     this.app.put("/rest/:entity", async (req, res) => {
+      if(req.params.entity === 'Person' && !validate(req.body)) {
+        res.status(400).json({ error: 'Person did not validate!' });
+        return;
+      }
       try {
         let entity = await mongoose.model(req.params.entity)
           .findOne({ _id: req.body._id })
@@ -99,3 +110,4 @@ module.exports = class Rest {
     );
   }
 };
+
