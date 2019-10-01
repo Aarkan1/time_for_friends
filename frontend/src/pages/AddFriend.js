@@ -14,7 +14,7 @@ class AddFriend extends Component {
     city: "",
     country: "Sweden",
     countryCode: "SE",
-    timezone: "Europe/Stockholm",
+    timezone: "",
     phoneNumbers: [""],
     mailAddresses: [""],
     works: '9-17',
@@ -24,6 +24,7 @@ class AddFriend extends Component {
 
   async componentDidMount() {
     M.FormSelect.init(document.querySelectorAll("select"));
+    this.countryListChange({target: { value: '{"id":"SE","name":"Sweden","timezones":["Europe/Stockholm"]}'}})
   }
 
   async addNewFriend(e) {
@@ -69,13 +70,14 @@ class AddFriend extends Component {
     ));
   }
 
-  countryListChange(e) {
+  async countryListChange(e) {
     let country = JSON.parse(e.target.value)
     this.setState({ countryCode: country.id, country: country.name })
 
-    setTimeout(() => {
-      M.FormSelect.init(document.querySelector("#timezone-list"));
-    }, 5);
+    await sleep(5)
+    let timezoneList = document.querySelector("#timezone-list")
+    M.FormSelect.init(timezoneList);
+    this.setState({timezone: timezoneList.querySelectorAll('option')[0].value})
   }
 
   timezoneList() {
@@ -176,8 +178,10 @@ class AddFriend extends Component {
             <i className="material-icons prefix">schedule</i>
             <select
             id="timezone-list"
-              value={this.state.timezone}
-              onChange={e => this.setState({ timezone: e.target.value })}
+            onChange={e => {
+                console.log(e.target.value);
+                this.setState({ timezone: e.target.value })
+              }}
             >
               {this.timezoneList()}
             </select>
