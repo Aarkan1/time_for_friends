@@ -53,7 +53,7 @@ app.all("*", (req, res) => {
 });
 
 if(process.argv.includes('reset-db')) {
-  const resetDB = require('./modules/resetDB') 
+  const resetDB = require('./utilities/resetDB') 
   resetDB()
 }
 
