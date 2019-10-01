@@ -27,9 +27,26 @@ class AddFriend extends Component {
     if(id) {
       let person = this.context.friends.filter(f => f._id === id)[0] || await Person.findOne(id);
       this.setState({...person})
+
+      await sleep(5);
+      
+      // Extreme workaround because of Materialize css boilerplate
       let country = document.querySelector('#country-list')
-      country.value = country.querySelectorAll('option')[0].value
-      console.log(this.state);
+      let countryOptions = country.querySelectorAll('option')
+      countryOptions = [...countryOptions].filter(c => c.innerHTML === this.state.country)[0]
+      country.value = countryOptions.value
+      this.countryListChange({target: { value: countryOptions.value }})
+      
+      let timezoneList = document.querySelector("#timezone-list")
+      timezoneList.value = this.state.timezone
+      
+      // fix for label bug
+      await sleep(50);
+      for(let el of document.querySelectorAll('input')) {
+        el.focus();
+        await sleep(5);
+        el.blur();
+      }
     } else {
       this.countryListChange({target: { value: '{"id":"SE","name":"Sweden","timezones":["Europe/Stockholm"]}'}})
     }
@@ -45,8 +62,6 @@ class AddFriend extends Component {
     })
 
     await sleep(5)
-
-    console.log(this.state);
     
     if (!validateForm(this.state)) {
       console.warn("Error: Form did not validate");
