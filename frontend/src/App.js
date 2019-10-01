@@ -15,6 +15,12 @@ export default class App extends Component {
     M.AutoInit();
   }
 
+  toTopHandler(e) {
+    setTimeout(() => {
+      window.history.replaceState({}, null, window.location.pathname.replace('#top', ''))
+    }, 5);
+  }
+
   render() {
     return (
       <FriendsContextProvider>
@@ -33,6 +39,7 @@ export default class App extends Component {
             <a
               href="#top"
               id="to-top-btn"
+              onClick={e => this.toTopHandler(e)}
               className="btn-floating btn-large orange lighten-1 waves-effect waves-light"
             >
               <i className="material-icons">keyboard_arrow_up</i>
