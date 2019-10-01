@@ -25,6 +25,7 @@ export default class TimeSlider extends Component {
     noUiSlider
       .create(slider, {
         start: [start, end],
+        behaviour: 'drag-tap',
         connect: true,
         step: 1,
         tooltips: [
