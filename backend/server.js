@@ -53,7 +53,8 @@ app.all("*", (req, res) => {
 });
 
 if(process.argv.includes('reset-db')) {
-  Rest.resetDB()
+  const resetDB = require('./modules/resetDB') 
+  resetDB()
 }
 
 function startWebServer() {
