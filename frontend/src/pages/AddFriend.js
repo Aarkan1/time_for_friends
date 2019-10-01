@@ -5,6 +5,7 @@ import Person from "../models/Person";
 import M from "materialize-css";
 import TimeSlider from "../components/TimeSlider";
 import ct from 'countries-and-timezones'
+import { sleep, validateForm } from '../utilities/utils'
 
 class AddFriend extends Component {
   static contextType = FriendsContext;
@@ -14,8 +15,8 @@ class AddFriend extends Component {
     country: "Sweden",
     countryCode: "SE",
     timezone: "Europe/Stockholm",
-    phoneNumbers: "",
-    mailAddresses: "",
+    phoneNumbers: [""],
+    mailAddresses: [""],
     works: '9-17',
     sleeps: '6-22'
   }
@@ -25,39 +26,33 @@ class AddFriend extends Component {
     M.FormSelect.init(document.querySelectorAll("select"));
   }
 
-  validateForm() {
-    let s = this.state;
-    return (
-      !!s.name.trim() &&
-      !!s.city.trim() &&
-      !!s.country.trim() &&
-      !!s.timezone.trim() &&
-      !!s.phoneNumbers.trim() &&
-      !!s.mailAddresses.trim()
-    );
-  }
-
   async addNewFriend(e) {
     e.preventDefault();
-    if (!this.validateForm()) {
+    this.setState({
+      phoneNumbers: this.state.phoneNumbers.filter(p => p),
+      mailAddresses: this.state.mailAddresses.filter(m => m)
+    })
+
+    await sleep(5)
+
+    console.log(this.state);
+    
+    if (!validateForm(this.state)) {
       console.warn("Error: Form did not validate");
+      this.setState({
+        phoneNumbers: [...this.state.phoneNumbers.filter(p => p), ""],
+        mailAddresses: [...this.state.mailAddresses.filter(m => m), ""]
+      })
       return;
     }
 
-    let friend = { ...this.state };
-    Object.assign(friend, {
-      phoneNumbers: this.state.phoneNumbers.split("\n"),
-      mailAddresses: this.state.mailAddresses.split("\n")
-    });
-    let person = new Person(friend);
+    let person = new Person(this.state);
     person = await person.save()
     this.props.history.push('/friend/' + person._id)
   }
 
   clearFields() {
     this.setState({...this.defaultFriend});
-    document.querySelector("#friend-emails").style.height = "0px";
-    document.querySelector("#friend-phone").style.height = "0px";
   }
 
   handleAddPhoneNumber(e, i) {
@@ -91,6 +86,40 @@ class AddFriend extends Component {
     ));
   }
 
+  phoneNumbers() {
+    return this.state.phoneNumbers.map((number, i) => (
+      <input
+        key={"number" + i}
+        type="text"
+        className={"friend-phone-" + i}
+        id="friend-phone"
+        value={number.replace(/[^\d\s-]/,"").replace(/-+/g, "-").replace(/\s+/g, " ")}
+        onChange={e => {
+          document.querySelector('.friend-phone-' + i).classList.remove("validate-error")
+          let phoneNumbers = [...this.state.phoneNumbers.filter(p => p), ""]
+          phoneNumbers[i] = e.target.value
+          this.setState({ phoneNumbers })
+        }} />
+    ))
+  }
+  
+  mailAddresses() {
+    return this.state.mailAddresses.map((email, i) => (
+      <input
+        key={"email" + i}
+        type="email"
+        className={"friend-email-" + i}
+        id="friend-emails"
+        value={email}
+        onChange={e => {
+          document.querySelector('.friend-email-' + i).classList.remove("validate-error")
+          let mailAddresses = [...this.state.mailAddresses.filter(m => m), ""]
+          mailAddresses[i] = e.target.value
+          this.setState({ mailAddresses })
+        }} />
+    ))
+  }
+
   setWorkTime(time) {
     this.setState({works: time.join('-')})
   }
@@ -114,7 +143,10 @@ class AddFriend extends Component {
               type="text"
               id="friend-name"
               value={this.state.name}
-              onChange={e => this.setState({ name: e.target.value })}
+              onChange={e => {
+                document.querySelector('#friend-name').classList.remove("validate-error")
+                this.setState({ name: e.target.value })
+                }}
             />
             <label htmlFor="friend-name">Name</label>
           </div>
@@ -124,7 +156,10 @@ class AddFriend extends Component {
               type="text"
               id="friend-city"
               value={this.state.city}
-              onChange={e => this.setState({ city: e.target.value })}
+              onChange={e => {
+                document.querySelector('#friend-city').classList.remove("validate-error")
+                this.setState({ city: e.target.value })
+              }}
             />
             <label htmlFor="friend-city">City</label>
           </div>
@@ -150,24 +185,12 @@ class AddFriend extends Component {
           </div>
           <div className="input-field">
             <i className="material-icons prefix">phone</i>
-            <textarea
-              type="text"
-              value={this.state.phoneNumbers}
-              onChange={e => this.setState({ phoneNumbers: e.target.value })}
-              className="materialize-textarea"
-              id="friend-phone"
-            />
+            {this.phoneNumbers()}
             <label htmlFor="friend-phone">Phone numbers</label>
           </div>
           <div className="input-field">
             <i className="material-icons prefix">email</i>
-            <textarea
-              type="email"
-              value={this.state.mailAddresses}
-              onChange={e => this.setState({ mailAddresses: e.target.value })}
-              className="materialize-textarea"
-              id="friend-emails"
-            />
+            {this.mailAddresses()}
             <label htmlFor="friend-emails">Email addresses</label>
           </div>
           <div className="row valign-wrapper">
