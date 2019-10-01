@@ -62,7 +62,9 @@ export default class FriendDetails extends Component {
         <div className="col s12 m6 offset-m3">
           <div className="row valign-wrapper">
             <div className="col s8 offset-s2">
-              {this.state.friend.timeOffset !== undefined ? this.getLocaleTime() : ""}
+              {this.state.friend.timeOffset !== undefined
+                ? this.getLocaleTime()
+                : ""}
             </div>
             <div className="col s1">
               <i
@@ -77,8 +79,8 @@ export default class FriendDetails extends Component {
             </div>
             <div className="col s1">{availabilityIcon(this.state.friend)}</div>
           </div>
-          <br/>
-          <hr/>
+          <br />
+          <hr />
           <div className="row">
             <div className="col s8">
               <p>City: {f.city}</p>
@@ -90,14 +92,22 @@ export default class FriendDetails extends Component {
               <p>Sleeps: {f.sleeps}</p>
             </div>
           </div>
-          <br/>
-          <hr/>
-          <p>Phone numbers</p>
-          {this.listPhoneNumbers(f.phoneNumbers)}
-          <br/>
-          <hr/>
-          <p>Emails</p>
-          {this.listEmails(f.mailAddresses)}
+          {f.phoneNumbers.length > 0 && (
+            <div>
+              <br />
+              <hr />
+              <p>Phone numbers</p>
+              {this.listPhoneNumbers(f.phoneNumbers)}
+            </div>
+          )}
+          {f.mailAddresses.length > 0 && (
+            <div>
+              <br />
+              <hr />
+              <p>Emails</p>
+              {this.listEmails(f.mailAddresses)}
+            </div>
+          )}
         </div>
       </div>
     );
