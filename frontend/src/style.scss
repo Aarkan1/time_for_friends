@@ -73,6 +73,15 @@ nav {
   }
 }
 
+#edit-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  i {
+    font-size: 2em;
+  }
+}
+
 .noUi-horizontal {
   height: 12px;
   background-color: #faecd7;

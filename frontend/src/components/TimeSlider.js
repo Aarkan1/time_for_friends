@@ -5,9 +5,13 @@ import wNumb from "wnumb";
 
 export default class TimeSlider extends Component {
   static contextType = FriendsContext;
-
+  
   componentDidMount() {
     this.initSlider();
+
+    setTimeout(() => {
+      this.props.updateTime && this.slider.noUiSlider.updateOptions({start: this.props.updateTime.split('-')})
+    }, 500);
   }
 
   initSlider() {
@@ -19,12 +23,12 @@ export default class TimeSlider extends Component {
       max: [24]
     };
 
-    let [start, end] = this.props.initTime ? this.props.initTime.split('-') : [0, 24]
+    let time = this.props.initTime ? this.props.initTime.split('-') : [0, 24]
 
-    let slider = document.getElementById(this.props.divId);
+    this.slider = document.getElementById(this.props.divId);
     noUiSlider
-      .create(slider, {
-        start: [start, end],
+      .create(this.slider, {
+        start: time,
         behaviour: 'drag-tap',
         connect: true,
         step: 1,

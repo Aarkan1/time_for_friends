@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { withRouter } from 'react-router-dom';
 import { FriendsContext } from "../contexts/FriendsContext";
 import Person from "../models/Person";
 import Clock from "../components/Clock";
 import { availabilityIcon } from "../utilities/utils";
 
-export default class FriendDetails extends Component {
+class FriendDetails extends Component {
   static contextType = FriendsContext;
   state = {
     friend: {
@@ -52,6 +53,23 @@ export default class FriendDetails extends Component {
         <p>{number}</p>
       </div>
     ));
+  }
+
+  editButton() {
+    const id = this.props.match.params.id;
+    return (
+      <a
+        id="edit-button"
+        href={"add-friend/" + id}
+        className="btn-floating btn-large orange lighten-1 waves-effect waves-light"
+        onClick={e => {
+          e.preventDefault();
+          this.props.history.push('/add-friend/' + id);
+        }}
+      >
+        <i className="material-icons">create</i>
+      </a>
+    )
   }
 
   render() {
@@ -109,7 +127,10 @@ export default class FriendDetails extends Component {
             </div>
           )}
         </div>
+        {this.editButton()}
       </div>
     );
   }
 }
+
+export default withRouter(FriendDetails)

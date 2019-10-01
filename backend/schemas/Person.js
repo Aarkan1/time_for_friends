@@ -8,6 +8,7 @@ let personSchema = new Schema({
   mailAddresses: Array,
   city: String,
   country: String,
+  countryCode: String,
   timezone: String,
   sleeps: String,
   works:  String

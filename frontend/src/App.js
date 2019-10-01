@@ -23,7 +23,7 @@ export default class App extends Component {
             <Navbar />
             <main className="container col s12 m8">
               <Route exact path="/" component={Home} />
-              <Route exact path="/add-friend" component={AddFriend} />
+              <Route exact path="/add-friend/:id?" component={AddFriend} />
               <Route
                 exact
                 path="/friend/:id?"

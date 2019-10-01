@@ -14,7 +14,7 @@ class AddFriend extends Component {
     city: "",
     country: "Sweden",
     countryCode: "SE",
-    timezone: "",
+    timezone: "Europe/Stockholm",
     phoneNumbers: [""],
     mailAddresses: [""],
     works: '9-17',
@@ -23,8 +23,18 @@ class AddFriend extends Component {
   state = {...this.defaultFriend};
 
   async componentDidMount() {
+    const id = this.props.match.params.id;
+    if(id) {
+      let person = this.context.friends.filter(f => f._id === id)[0] || await Person.findOne(id);
+      this.setState({...person})
+      let country = document.querySelector('#country-list')
+      country.value = country.querySelectorAll('option')[0].value
+      console.log(this.state);
+    } else {
+      this.countryListChange({target: { value: '{"id":"SE","name":"Sweden","timezones":["Europe/Stockholm"]}'}})
+    }
+    
     M.FormSelect.init(document.querySelectorAll("select"));
-    this.countryListChange({target: { value: '{"id":"SE","name":"Sweden","timezones":["Europe/Stockholm"]}'}})
   }
 
   async addNewFriend(e) {
@@ -130,10 +140,28 @@ class AddFriend extends Component {
     this.setState({sleeps: time.reverse().join('-')})
   }
 
+  deleteButton() {
+    const id = this.props.match.params.id;
+    return (
+      <a
+        href={"add-friend/" + id}
+        className="btn red lighten-1 waves-effect waves-light col s3 offset-s4"
+        onClick={async e => {
+          e.preventDefault();
+          let person = await Person.findOne(id);
+          console.log(await person.delete());
+          this.props.history.push('/');
+        }}
+      >
+        Delete
+      </a>
+    )
+  }
+
   render() {
     return (
       <div className="row">
-        <h4 className="center-align">Add new friend</h4>
+        <h4 className="center-align">{this.props.match.params.id ? 'Edit friend' : 'Add new friend'}</h4>
         <form
           className="col s12 m8 l6 offset-m2 offset-l3"
           action=""
@@ -168,6 +196,7 @@ class AddFriend extends Component {
           <div className="input-field">
             <i className="material-icons prefix">emoji_flags</i>
             <select
+            id="country-list"
               defaultValue={'{"id":"SE","name":"Sweden","timezones":["Europe/Stockholm"]}'}
               onChange={e => this.countryListChange(e)}>
               {this.countryList()}
@@ -201,12 +230,19 @@ class AddFriend extends Component {
             <i className="material-icons col">emoji_transportation</i>
             <p className="col">Working time</p>
           </div>
-          <TimeSlider divId="time-slider-work" initTime="9-17" onUpdate={time => this.setWorkTime(time)} />
+          <TimeSlider divId="time-slider-work" 
+            initTime={this.state.works} 
+            updateTime={this.state.works} 
+            onUpdate={time => this.setWorkTime(time)} />
           <div className="row valign-wrapper">
             <i className="material-icons col">snooze</i>
             <p className="col">Sleeping time</p>
           </div>
-          <TimeSlider divId="time-slider-sleep" initTime="6-22" onUpdate={time => this.setSleepTime(time)} />
+          {/* Needs to reverse sleep time to update slider correctly */}
+          <TimeSlider divId="time-slider-sleep" 
+            initTime={this.state.sleeps} 
+            updateTime={this.state.sleeps.split('-').reverse().join('-')} 
+            onUpdate={time => this.setSleepTime(time)} />
             <br/>
           <div className="row">
             <button
@@ -223,8 +259,15 @@ class AddFriend extends Component {
             >
               Submit
             </button>
-          </div>
+          </div> 
+          {this.props.match.params.id && 
+          (<div className="row">
+            <br/>
+            <br/>
+            {this.deleteButton()}
+          </div>)}
         </form>
+       
       </div>
     );
   }
