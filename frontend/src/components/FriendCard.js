@@ -18,7 +18,7 @@ export default class FriendCard extends Component {
     return (
       <Clock
         onUpdate={e => this.setNight(e)}
-        {...{ timeOffset: this.props.timeOffset, timezone: this.props.timezone }}
+        {...{ timeOffset: this.props.timeOffset }}
       />
     );
   }

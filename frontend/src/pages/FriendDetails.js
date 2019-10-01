@@ -62,7 +62,7 @@ export default class FriendDetails extends Component {
         <div className="col s12 m6 offset-m3">
           <div className="row valign-wrapper">
             <div className="col s8 offset-s2">
-              {this.state.friend.timeOffset ? this.getLocaleTime() : ""}
+              {this.state.friend.timeOffset !== undefined ? this.getLocaleTime() : ""}
             </div>
             <div className="col s1">
               <i

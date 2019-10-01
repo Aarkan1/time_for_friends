@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { sleep } from "../utilities/utils";
-import moment from 'moment-timezone'
 
 export default class Clock extends Component {
   offset = this.props.timeOffset || 0;
 
-  // if no  timezone in props, use locale timezone
-  timezone = this.props.timezone || moment.tz.guess() 
   _isMounted = false;
   state = {
     time: new Date(Date.now() + this.offset)
