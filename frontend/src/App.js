@@ -44,7 +44,7 @@ export default class App extends Component {
             >
               <i className="material-icons">keyboard_arrow_up</i>
             </a>
-            <footer className="footer grey lighten-3 center-align valign-wrapper">
+            <footer className="footer center-align valign-wrapper">
               <h6 className="copyright">&copy; 2019 Time for friends</h6>
             </footer>
           </div>

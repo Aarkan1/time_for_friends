@@ -1,3 +1,34 @@
+:root {
+  --dark-mode-bg: #333;
+  --dark-mode-ui: #555;
+  --dark-mode-text: #ddd;
+
+  --light-mode-bg: #f3f3f3;
+  --light-mode-ui: #fafafa;
+  --light-mode-text: #333;
+
+  --theme-bg: var(--light-mode-bg);
+  --theme-ui: var(--light-mode-ui);
+  --theme-text: var(--light-mode-text);
+}
+
+.App,
+.footer,
+.sidenav {
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+}
+
+.card,
+.footer,
+.sidenav {
+  background-color: var(--theme-ui);
+}
+
+input, .sidenav li > a {
+  color: var(--theme-text);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -23,7 +54,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #fafafa;
   main {
     flex: 1;
   }

@@ -42,6 +42,7 @@ class AddFriend extends Component {
       
       // fix for label bug
       await sleep(50);
+      // eslint-disable-next-line
       for(let el of document.querySelectorAll('input')) {
         el.focus();
         await sleep(5);
