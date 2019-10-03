@@ -152,7 +152,11 @@ nav {
 }
 
 #timezone-checkbox {
-  margin: auto;
+  display: flex;
+  margin-top: 15px;
+  p {
+    margin: 0;
+  }
   #timezone-checkbox-span {
     padding: 0;
   }
@@ -190,7 +194,12 @@ nav {
   }
 }
 
-.friend-details p {
-  font-size: 1.3rem;
-  margin: 5px 0;
+.friend-details {
+  i:not(.i-edit-button) {
+    padding-top: 8px !important;
+  }
+  p {
+    font-size: 1.3rem;
+    margin: 5px 0;
+  }
 }

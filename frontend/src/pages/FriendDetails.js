@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { FriendsContext } from "../contexts/FriendsContext";
 import Person from "../models/Person";
 import Clock from "../components/Clock";
@@ -64,12 +64,12 @@ class FriendDetails extends Component {
         className="btn-floating btn-large orange lighten-1 waves-effect waves-light"
         onClick={e => {
           e.preventDefault();
-          this.props.history.push('/add-friend/' + id);
+          this.props.history.push("/add-friend/" + id);
         }}
       >
-        <i className="material-icons">create</i>
+        <i className="material-icons i-edit-button">create</i>
       </a>
-    )
+    );
   }
 
   render() {
@@ -100,7 +100,8 @@ class FriendDetails extends Component {
           <br />
           <hr />
           <div className="row">
-            <div className="col s8">
+            <i className="material-icons col s1">location_city</i>
+            <div className="col s7">
               <p>City: {f.city}</p>
               <p>Country: {f.country}</p>
               <p>Zone: {f.timezone}</p>
@@ -114,16 +115,24 @@ class FriendDetails extends Component {
             <div>
               <br />
               <hr />
-              <p>Phone numbers</p>
-              {this.listPhoneNumbers(f.phoneNumbers)}
+              <div className="row">
+                <i className="material-icons col s1">phone</i>
+                <div className="col">
+                  <p>Phone numbers</p>
+                  {this.listPhoneNumbers(f.phoneNumbers)}
+                </div>
+              </div>
             </div>
           )}
           {f.mailAddresses.length > 0 && (
             <div>
               <br />
               <hr />
-              <p>Emails</p>
-              {this.listEmails(f.mailAddresses)}
+              <i className="material-icons col s1">email</i>
+              <div className="col">
+                <p>Emails</p>
+                {this.listEmails(f.mailAddresses)}
+              </div>{" "}
             </div>
           )}
         </div>
@@ -133,4 +142,4 @@ class FriendDetails extends Component {
   }
 }
 
-export default withRouter(FriendDetails)
+export default withRouter(FriendDetails);

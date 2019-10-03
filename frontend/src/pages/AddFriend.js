@@ -121,6 +121,7 @@ class AddFriend extends Component {
         type="text"
         className={"friend-phone-" + i}
         id="friend-phone"
+        placeholder={i ? 'Phone number ' + (i + 1) : null}
         value={number.replace(/[^\d\s-+]/,"").replace(/-+/g, "-").replace(/\++/g, "+").replace(/\s+/g, " ")}
         onChange={e => {
           document.querySelector('.friend-phone-' + i).classList.remove("validate-error")
@@ -139,6 +140,7 @@ class AddFriend extends Component {
         className={"friend-email-" + i}
         id="friend-emails"
         value={email}
+        placeholder={i ? 'Email address ' + (i + 1) : null}
         onChange={e => {
           document.querySelector('.friend-email-' + i).classList.remove("validate-error")
           let mailAddresses = [...this.state.mailAddresses.filter(m => m), ""]

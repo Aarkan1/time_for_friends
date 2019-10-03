@@ -73,8 +73,8 @@ export default class Home extends Component {
 
   toggleSearchTimezone() {
     return (
-      <span id="timezone-checkbox">
-        <label>
+      <div id="timezone-checkbox" className="row valign-wrapper">
+        <label className="col s1">
           <input
             type="checkbox"
             className="filled-in"
@@ -88,7 +88,8 @@ export default class Home extends Component {
           />
           <span id="timezone-checkbox-span"></span>
         </label>
-      </span>
+        <p className="col s11">Search by timezone</p>
+      </div>
     );
   }
 
@@ -111,9 +112,8 @@ export default class Home extends Component {
         </div>
         <div className="row">
           <div className="col s12 l6 offset-l3">
-            <div className="search-friend row valign-wrapper">
               {this.toggleSearchTimezone()}
-              <div className="input-field right col s11">
+              <div className="input-field">
                 <input
                   type="text"
                   value={this.state.search}
@@ -125,7 +125,6 @@ export default class Home extends Component {
                   Search friend by
                   {this.state.searchByTimezone ? " timezone" : " name"}
                 </label>
-              </div>
             </div>
             <TimeSlider
               divId="time-slider-filter-friends"
