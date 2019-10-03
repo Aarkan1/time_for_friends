@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Types;
 const Schema = mongoose.Schema;
 
 let personSchema = new Schema({
@@ -14,14 +13,7 @@ let personSchema = new Schema({
   works:  String
 });
 
-class PersonClass {
-
-  showKittens() {
-    this.kittens.forEach(kitten => {
-      kitten.sayHi();
-    });
-  }
-}
+class PersonClass {}
 
 personSchema.loadClass(PersonClass);
 

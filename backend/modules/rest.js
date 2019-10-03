@@ -33,7 +33,7 @@ module.exports = class Rest {
       let result;
       try {
         result= await mongoose.model(req.params.entity)
-        .findOne(query, null, { populate: ['kittens'] }).exec()
+        .findOne(query).exec()
       } catch {
         res.status(404).json({ error: `Could not find ${req.params.entity} with id: ${req.params.id}` })
       }
