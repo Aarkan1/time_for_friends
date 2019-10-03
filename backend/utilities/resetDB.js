@@ -3,8 +3,7 @@ module.exports = async function() {
   let counter = 1;
 
   try {
-    let results = await mongoose.model("Person").find({});
-    results.map(p => p.delete());
+    await mongoose.model("Person").deleteMany({});
 
     const friendsList = require("./friendsList");
     friendsList.map(friend => {

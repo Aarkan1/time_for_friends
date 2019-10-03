@@ -3,6 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { FriendsContext } from "../contexts/FriendsContext";
 import Person from "../models/Person";
 import M from "materialize-css";
+import DeleteFriendButton from "../components/DeleteFriendButton";
+import AddPhoneNumbers from "../components/AddPhoneNumbers";
+import AddEmails from "../components/AddEmails";
 import TimeSlider from "../components/TimeSlider";
 import ct from 'countries-and-timezones'
 import { sleep, validateForm } from '../utilities/utils'
@@ -63,6 +66,9 @@ class AddFriend extends Component {
     })
 
     await sleep(5)
+
+    console.log(this.state);
+    
     
     if (!validateForm(this.state)) {
       console.warn("Error: Form did not validate");
@@ -114,42 +120,6 @@ class AddFriend extends Component {
     ));
   }
 
-  phoneNumbers() {
-    return this.state.phoneNumbers.map((number, i) => (
-      <input
-        key={"number" + i}
-        type="text"
-        className={"friend-phone-" + i}
-        id="friend-phone"
-        placeholder={i ? 'Phone number ' + (i + 1) : null}
-        value={number.replace(/[^\d\s-+]/,"").replace(/-+/g, "-").replace(/\++/g, "+").replace(/\s+/g, " ")}
-        onChange={e => {
-          document.querySelector('.friend-phone-' + i).classList.remove("validate-error")
-          let phoneNumbers = [...this.state.phoneNumbers.filter(p => p), ""]
-          phoneNumbers[i] = e.target.value
-          this.setState({ phoneNumbers })
-        }} />
-    ))
-  }
-  
-  mailAddresses() {
-    return this.state.mailAddresses.map((email, i) => (
-      <input
-        key={"email" + i}
-        type="email"
-        className={"friend-email-" + i}
-        id="friend-emails"
-        value={email}
-        placeholder={i ? 'Email address ' + (i + 1) : null}
-        onChange={e => {
-          document.querySelector('.friend-email-' + i).classList.remove("validate-error")
-          let mailAddresses = [...this.state.mailAddresses.filter(m => m), ""]
-          mailAddresses[i] = e.target.value
-          this.setState({ mailAddresses })
-        }} />
-    ))
-  }
-
   setWorkTime(time) {
     document.querySelector('#work-sleep-sliders').classList.remove("validate-error");
     this.setState({works: time.join('-')})
@@ -160,23 +130,6 @@ class AddFriend extends Component {
     this.setState({sleeps: time.reverse().join('-')})
   }
 
-  deleteButton() {
-    const id = this.props.match.params.id;
-    return (
-      <a
-        href={"add-friend/" + id}
-        className="btn red lighten-1 waves-effect waves-light col s3 offset-s4"
-        onClick={async e => {
-          e.preventDefault();
-          let person = await Person.findOne(id);
-          console.log(await person.delete());
-          this.props.history.push('/');
-        }}
-      >
-        Delete
-      </a>
-    )
-  }
 
   render() {
     return (
@@ -236,16 +189,12 @@ class AddFriend extends Component {
             </select>
             <label>Timezone</label>
           </div>
-          <div className="input-field">
-            <i className="material-icons prefix">phone</i>
-            {this.phoneNumbers()}
-            <label htmlFor="friend-phone">Phone numbers</label>
-          </div>
-          <div className="input-field">
-            <i className="material-icons prefix">email</i>
-            {this.mailAddresses()}
-            <label htmlFor="friend-emails">Email addresses</label>
-          </div>
+          <AddPhoneNumbers numbers={this.state.phoneNumbers} onUpdate={phoneNumbers => {
+            this.setState({phoneNumbers});
+            }}/>
+          <AddEmails emails={this.state.mailAddresses} onUpdate={mailAddresses => {
+            this.setState({mailAddresses});
+            }}/>
           <div id="work-sleep-sliders">
             <div className="row valign-wrapper">
               <i className="material-icons col">emoji_transportation</i>
@@ -287,10 +236,9 @@ class AddFriend extends Component {
           (<div className="row">
             <br/>
             <br/>
-            {this.deleteButton()}
+            <DeleteFriendButton />
           </div>)}
         </form>
-       
       </div>
     );
   }
