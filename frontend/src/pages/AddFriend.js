@@ -121,7 +121,7 @@ class AddFriend extends Component {
         type="text"
         className={"friend-phone-" + i}
         id="friend-phone"
-        value={number.replace(/[^\d\s-]/,"").replace(/-+/g, "-").replace(/\s+/g, " ")}
+        value={number.replace(/[^\d\s-+]/,"").replace(/-+/g, "-").replace(/\++/g, "+").replace(/\s+/g, " ")}
         onChange={e => {
           document.querySelector('.friend-phone-' + i).classList.remove("validate-error")
           let phoneNumbers = [...this.state.phoneNumbers.filter(p => p), ""]
@@ -149,10 +149,12 @@ class AddFriend extends Component {
   }
 
   setWorkTime(time) {
+    document.querySelector('#work-sleep-sliders').classList.remove("validate-error");
     this.setState({works: time.join('-')})
   }
   
   setSleepTime(time) {
+    document.querySelector('#work-sleep-sliders').classList.remove("validate-error");
     this.setState({sleeps: time.reverse().join('-')})
   }
 
@@ -242,24 +244,27 @@ class AddFriend extends Component {
             {this.mailAddresses()}
             <label htmlFor="friend-emails">Email addresses</label>
           </div>
-          <div className="row valign-wrapper">
-            <i className="material-icons col">emoji_transportation</i>
-            <p className="col">Working time</p>
+          <div id="work-sleep-sliders">
+            <div className="row valign-wrapper">
+              <i className="material-icons col">emoji_transportation</i>
+              <p className="col">Working time</p>
+            </div>
+
+            <TimeSlider divId="time-slider-work" 
+              initTime={this.state.works} 
+              updateTime={this.state.works} 
+              onUpdate={time => this.setWorkTime(time)} />
+            <div className="row valign-wrapper">
+              <i className="material-icons col">snooze</i>
+              <p className="col">Sleeping time</p>
+            </div>
+            {/* Needs to reverse sleep time to update slider correctly */}
+            <TimeSlider divId="time-slider-sleep" 
+              initTime={this.state.sleeps} 
+              updateTime={this.state.sleeps.split('-').reverse().join('-')} 
+              onUpdate={time => this.setSleepTime(time)} />
           </div>
-          <TimeSlider divId="time-slider-work" 
-            initTime={this.state.works} 
-            updateTime={this.state.works} 
-            onUpdate={time => this.setWorkTime(time)} />
-          <div className="row valign-wrapper">
-            <i className="material-icons col">snooze</i>
-            <p className="col">Sleeping time</p>
-          </div>
-          {/* Needs to reverse sleep time to update slider correctly */}
-          <TimeSlider divId="time-slider-sleep" 
-            initTime={this.state.sleeps} 
-            updateTime={this.state.sleeps.split('-').reverse().join('-')} 
-            onUpdate={time => this.setSleepTime(time)} />
-            <br/>
+          <br/>
           <div className="row">
             <button
               type="button"

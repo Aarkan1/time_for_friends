@@ -50,5 +50,18 @@ export function validateForm(s) {
     return undefined;
   }).filter(m => m !== undefined).length > 0);
 
-  return valName && valCity && valPhone && valEmail;
+  // extract work and sleep time
+  // and convert values to numbers 
+  // for number comparison
+  let [workStart, workEnd] = s.works.split('-');
+  let [sleepStart, sleepEnd] = s.sleeps.split('-');
+  workStart = workStart / 1;
+  workEnd = workEnd / 1;
+  sleepStart = sleepStart / 1;
+  sleepEnd = sleepEnd / 1;
+
+  const valWorkSleep = (workStart > sleepEnd) && (workEnd < sleepStart);
+  !valWorkSleep && document.querySelector('#work-sleep-sliders').classList.add("validate-error");
+  
+  return valName && valCity && valPhone && valEmail && valWorkSleep;
 }

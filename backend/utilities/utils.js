@@ -19,5 +19,17 @@ module.exports = function validatePerson(s) {
     return undefined;
   }).filter(m => m !== undefined).length > 0);
 
-  return valName && valWorks && valSleeps && valCity && valPhone && valEmail;
+  // extract work and sleep time
+  // and convert values to numbers 
+  // for number comparison
+  let [workStart, workEnd] = s.works.split('-');
+  let [sleepStart, sleepEnd] = s.sleeps.split('-');
+  workStart = workStart / 1;
+  workEnd = workEnd / 1;
+  sleepStart = sleepStart / 1;
+  sleepEnd = sleepEnd / 1;
+
+  const valWorkSleep = (workStart > sleepEnd) && (workEnd < sleepStart);
+
+  return valName && valWorks && valSleeps && valCity && valPhone && valEmail && valWorkSleep;
 }
