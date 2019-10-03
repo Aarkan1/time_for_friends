@@ -80,9 +80,9 @@ export default class Home extends Component {
             className="filled-in"
             checked={this.state.searchByTimezone}
             onChange={e => {
-              this.setState({ searchByTimezone: e.target.checked })
+              this.setState({ searchByTimezone: e.target.checked });
               setTimeout(() => {
-                this.filterFriends()
+                this.filterFriends();
               }, 5);
             }}
           />
@@ -109,24 +109,31 @@ export default class Home extends Component {
           </i>
           <Clock onUpdate={e => this.setNight(e)} />
         </div>
-        <div className="search-friend row valign-wrapper">
-          {this.toggleSearchTimezone()}
-          <div className="input-field right col s11">
-            <input
-              type="text"
-              value={this.state.search}
-              onChange={e => this.setState({ search: e.target.value })}
-              onKeyUp={() => this.filterFriends()}
-              id="search-query"
+        <div className="row">
+          <div className="col s12 l6 offset-l3">
+            <div className="search-friend row valign-wrapper">
+              {this.toggleSearchTimezone()}
+              <div className="input-field right col s11">
+                <input
+                  type="text"
+                  value={this.state.search}
+                  onChange={e => this.setState({ search: e.target.value })}
+                  onKeyUp={() => this.filterFriends()}
+                  id="search-query"
+                />
+                <label htmlFor="search-query">
+                  Search friend by
+                  {this.state.searchByTimezone ? " timezone" : " name"}
+                </label>
+              </div>
+            </div>
+            <TimeSlider
+              divId="time-slider-filter-friends"
+              onUpdate={time => this.timeFilter(time)}
             />
-            <label htmlFor="search-query">
-              Search friend by
-              {this.state.searchByTimezone ? " timezone" : " name"}
-            </label>
+            <p>Sort by: {this.sortByNameSwitch()}</p>
           </div>
         </div>
-        <TimeSlider divId="time-slider-filter-friends" onUpdate={time => this.timeFilter(time)} />
-        <p>Sort by: {this.sortByNameSwitch()}</p>
         <div className="App-header row">{this.listFriends()}</div>
       </div>
     );

@@ -77,7 +77,7 @@ class FriendDetails extends Component {
     return (
       <div className="row friend-details">
         <h3 className="center-align">{f.name}</h3>
-        <div className="col s12 m6 offset-m3">
+        <div className="col s12 m10 offset-m1 l6 offset-l3">
           <div className="row valign-wrapper">
             <div className="col s8 offset-s2">
               {this.state.friend.timeOffset !== undefined
