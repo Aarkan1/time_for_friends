@@ -87,11 +87,11 @@ module.exports = class Rest {
   delete() {
     this.app.delete("/rest/:entity/:id", async (req, res) => {
       try {
-        let kitten = await mongoose.model(req.params.entity)
+        let entity = await mongoose.model(req.params.entity)
           .findByIdAndDelete({ _id: req.params.id })
           .catch(console.error);
 
-        if (kitten) {
+        if (entity) {
           res.json({
             msg: `Deleted ${req.params.entity}, id: ${req.params.id}`
           });
