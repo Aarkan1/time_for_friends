@@ -30,7 +30,6 @@ class AddFriend extends Component {
     if(id) {
       let person = this.context.friends.filter(f => f._id === id)[0] || await Person.findOne(id);
       this.setState({...person})
-
       await sleep(5);
       
       // Extreme workaround because of Materialize css boilerplate
@@ -42,7 +41,6 @@ class AddFriend extends Component {
       
       let timezoneList = document.querySelector("#timezone-list")
       timezoneList.value = this.state.timezone
-      
       // fix for label bug
       await sleep(50);
       // eslint-disable-next-line
@@ -54,7 +52,6 @@ class AddFriend extends Component {
     } else {
       this.countryListChange({target: { value: '{"id":"SE","name":"Sweden","timezones":["Europe/Stockholm"]}'}})
     }
-    
     M.FormSelect.init(document.querySelectorAll("select"));
   }
 
@@ -64,11 +61,7 @@ class AddFriend extends Component {
       phoneNumbers: this.state.phoneNumbers.filter(p => p),
       mailAddresses: this.state.mailAddresses.filter(m => m)
     })
-
     await sleep(5)
-
-    console.log(this.state);
-    
     
     if (!validateForm(this.state)) {
       console.warn("Error: Form did not validate");
@@ -78,7 +71,6 @@ class AddFriend extends Component {
       })
       return;
     }
-
     let person = new Person(this.state);
     person = await person.save()
     this.props.history.push('/friend/' + person._id)
@@ -138,8 +130,7 @@ class AddFriend extends Component {
         <form
           className="col s12 m8 l6 offset-m2 offset-l3"
           action=""
-          onSubmit={e => this.addNewFriend(e)}
-        >
+          onSubmit={e => this.addNewFriend(e)}>
           <div className="input-field">
             <i className="material-icons prefix">account_circle</i>
             <input
@@ -149,8 +140,7 @@ class AddFriend extends Component {
               onChange={e => {
                 document.querySelector('#friend-name').classList.remove("validate-error")
                 this.setState({ name: e.target.value })
-                }}
-            />
+                }} />
             <label htmlFor="friend-name">Name</label>
           </div>
           <div className="input-field">
@@ -162,8 +152,7 @@ class AddFriend extends Component {
               onChange={e => {
                 document.querySelector('#friend-city').classList.remove("validate-error")
                 this.setState({ city: e.target.value })
-              }}
-            />
+              }} />
             <label htmlFor="friend-city">City</label>
           </div>
           <div className="input-field">
@@ -183,8 +172,7 @@ class AddFriend extends Component {
             onChange={e => {
                 console.log(e.target.value);
                 this.setState({ timezone: e.target.value })
-              }}
-            >
+              }}>
               {this.timezoneList()}
             </select>
             <label>Timezone</label>
@@ -200,7 +188,6 @@ class AddFriend extends Component {
               <i className="material-icons col">emoji_transportation</i>
               <p className="col">Working time</p>
             </div>
-
             <TimeSlider divId="time-slider-work" 
               initTime={this.state.works} 
               updateTime={this.state.works} 
@@ -220,15 +207,13 @@ class AddFriend extends Component {
             <button
               type="button"
               onClick={e => this.clearFields(e)}
-              className="col offset-s2 waves-effect lighten-waves btn red lighten-2"
-            >
+              className="col offset-s2 waves-effect lighten-waves btn red lighten-2">
               Clear
             </button>
             <button
               type="submit"
               onClick={e => this.addNewFriend(e)}
-              className="col offset-s3 waves-effect lighten-waves btn"
-            >
+              className="col offset-s3 waves-effect lighten-waves btn">
               Submit
             </button>
           </div> 

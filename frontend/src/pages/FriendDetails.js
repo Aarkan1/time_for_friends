@@ -23,10 +23,8 @@ class FriendDetails extends Component {
 
   getLocaleTime() {
     return (
-      <Clock
-        onUpdate={e => this.setNight(e)}
-        {...{ timeOffset: this.state.friend.timeOffset }}
-      />
+      <Clock onUpdate={e => this.setNight(e)}
+        {...{ timeOffset: this.state.friend.timeOffset }} />
     );
   }
 
@@ -65,8 +63,7 @@ class FriendDetails extends Component {
         onClick={e => {
           e.preventDefault();
           this.props.history.push("/add-friend/" + id);
-        }}
-      >
+        }} >
         <i className="material-icons i-edit-button">create</i>
       </a>
     );
@@ -85,13 +82,11 @@ class FriendDetails extends Component {
                 : ""}
             </div>
             <div className="col s1">
-              <i
-                className={
+              <i className={
                   this.state.isNight
                     ? "material-icons right blue-text text-darken-3"
                     : "material-icons right orange-text"
-                }
-              >
+                } >
                 {this.state.isNight ? "nights_stay" : "wb_sunny"}
               </i>
             </div>
