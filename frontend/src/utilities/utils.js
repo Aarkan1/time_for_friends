@@ -22,9 +22,9 @@ export function availabilityIcon(friend) {
   const isWorking = workStart < localeHour && workEnd > localeHour;
   const isSleeping = sleepEnd > localeHour || sleepStart < localeHour;
 
-  return (isWorking ? <i className="material-icons right">emoji_transportation</i> 
-        : isSleeping ? <i className="material-icons right">snooze</i> 
-        : <i className="material-icons right">mood</i>);
+  return (isWorking ? <i className="material-icons yellow-text text-darken-3 right">emoji_transportation</i> 
+        : isSleeping ? <i className="material-icons red-text text-darken-2 right">snooze</i> 
+        : <i className="material-icons green-text text-darken-2 right">mood</i>);
 } 
 
 export function validateForm(s) {

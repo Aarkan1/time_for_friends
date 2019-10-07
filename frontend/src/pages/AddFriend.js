@@ -3,6 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { FriendsContext } from "../contexts/FriendsContext";
 import Person from "../models/Person";
 import M from "materialize-css";
+import DeleteFriendButton from "../components/DeleteFriendButton";
+import AddPhoneNumbers from "../components/AddPhoneNumbers";
+import AddEmails from "../components/AddEmails";
 import TimeSlider from "../components/TimeSlider";
 import ct from 'countries-and-timezones'
 import { sleep, validateForm } from '../utilities/utils'
@@ -27,7 +30,6 @@ class AddFriend extends Component {
     if(id) {
       let person = this.context.friends.filter(f => f._id === id)[0] || await Person.findOne(id);
       this.setState({...person})
-
       await sleep(5);
       
       // Extreme workaround because of Materialize css boilerplate
@@ -39,7 +41,6 @@ class AddFriend extends Component {
       
       let timezoneList = document.querySelector("#timezone-list")
       timezoneList.value = this.state.timezone
-      
       // fix for label bug
       await sleep(50);
       // eslint-disable-next-line
@@ -51,7 +52,6 @@ class AddFriend extends Component {
     } else {
       this.countryListChange({target: { value: '{"id":"SE","name":"Sweden","timezones":["Europe/Stockholm"]}'}})
     }
-    
     M.FormSelect.init(document.querySelectorAll("select"));
   }
 
@@ -61,7 +61,6 @@ class AddFriend extends Component {
       phoneNumbers: this.state.phoneNumbers.filter(p => p),
       mailAddresses: this.state.mailAddresses.filter(m => m)
     })
-
     await sleep(5)
     
     if (!validateForm(this.state)) {
@@ -72,7 +71,6 @@ class AddFriend extends Component {
       })
       return;
     }
-
     let person = new Person(this.state);
     person = await person.save()
     this.props.history.push('/friend/' + person._id)
@@ -114,42 +112,6 @@ class AddFriend extends Component {
     ));
   }
 
-  phoneNumbers() {
-    return this.state.phoneNumbers.map((number, i) => (
-      <input
-        key={"number" + i}
-        type="text"
-        className={"friend-phone-" + i}
-        id="friend-phone"
-        placeholder={i ? 'Phone number ' + (i + 1) : null}
-        value={number.replace(/[^\d\s-+]/,"").replace(/-+/g, "-").replace(/\++/g, "+").replace(/\s+/g, " ")}
-        onChange={e => {
-          document.querySelector('.friend-phone-' + i).classList.remove("validate-error")
-          let phoneNumbers = [...this.state.phoneNumbers.filter(p => p), ""]
-          phoneNumbers[i] = e.target.value
-          this.setState({ phoneNumbers })
-        }} />
-    ))
-  }
-  
-  mailAddresses() {
-    return this.state.mailAddresses.map((email, i) => (
-      <input
-        key={"email" + i}
-        type="email"
-        className={"friend-email-" + i}
-        id="friend-emails"
-        value={email}
-        placeholder={i ? 'Email address ' + (i + 1) : null}
-        onChange={e => {
-          document.querySelector('.friend-email-' + i).classList.remove("validate-error")
-          let mailAddresses = [...this.state.mailAddresses.filter(m => m), ""]
-          mailAddresses[i] = e.target.value
-          this.setState({ mailAddresses })
-        }} />
-    ))
-  }
-
   setWorkTime(time) {
     document.querySelector('#work-sleep-sliders').classList.remove("validate-error");
     this.setState({works: time.join('-')})
@@ -160,23 +122,6 @@ class AddFriend extends Component {
     this.setState({sleeps: time.reverse().join('-')})
   }
 
-  deleteButton() {
-    const id = this.props.match.params.id;
-    return (
-      <a
-        href={"add-friend/" + id}
-        className="btn red lighten-1 waves-effect waves-light col s3 offset-s4"
-        onClick={async e => {
-          e.preventDefault();
-          let person = await Person.findOne(id);
-          console.log(await person.delete());
-          this.props.history.push('/');
-        }}
-      >
-        Delete
-      </a>
-    )
-  }
 
   render() {
     return (
@@ -185,8 +130,7 @@ class AddFriend extends Component {
         <form
           className="col s12 m8 l6 offset-m2 offset-l3"
           action=""
-          onSubmit={e => this.addNewFriend(e)}
-        >
+          onSubmit={e => this.addNewFriend(e)}>
           <div className="input-field">
             <i className="material-icons prefix">account_circle</i>
             <input
@@ -196,8 +140,7 @@ class AddFriend extends Component {
               onChange={e => {
                 document.querySelector('#friend-name').classList.remove("validate-error")
                 this.setState({ name: e.target.value })
-                }}
-            />
+                }} />
             <label htmlFor="friend-name">Name</label>
           </div>
           <div className="input-field">
@@ -209,8 +152,7 @@ class AddFriend extends Component {
               onChange={e => {
                 document.querySelector('#friend-city').classList.remove("validate-error")
                 this.setState({ city: e.target.value })
-              }}
-            />
+              }} />
             <label htmlFor="friend-city">City</label>
           </div>
           <div className="input-field">
@@ -230,28 +172,22 @@ class AddFriend extends Component {
             onChange={e => {
                 console.log(e.target.value);
                 this.setState({ timezone: e.target.value })
-              }}
-            >
+              }}>
               {this.timezoneList()}
             </select>
             <label>Timezone</label>
           </div>
-          <div className="input-field">
-            <i className="material-icons prefix">phone</i>
-            {this.phoneNumbers()}
-            <label htmlFor="friend-phone">Phone numbers</label>
-          </div>
-          <div className="input-field">
-            <i className="material-icons prefix">email</i>
-            {this.mailAddresses()}
-            <label htmlFor="friend-emails">Email addresses</label>
-          </div>
+          <AddPhoneNumbers numbers={this.state.phoneNumbers} onUpdate={phoneNumbers => {
+            this.setState({phoneNumbers});
+            }}/>
+          <AddEmails emails={this.state.mailAddresses} onUpdate={mailAddresses => {
+            this.setState({mailAddresses});
+            }}/>
           <div id="work-sleep-sliders">
             <div className="row valign-wrapper">
               <i className="material-icons col">emoji_transportation</i>
               <p className="col">Working time</p>
             </div>
-
             <TimeSlider divId="time-slider-work" 
               initTime={this.state.works} 
               updateTime={this.state.works} 
@@ -271,15 +207,13 @@ class AddFriend extends Component {
             <button
               type="button"
               onClick={e => this.clearFields(e)}
-              className="col offset-s2 waves-effect lighten-waves btn red lighten-2"
-            >
+              className="col offset-s2 waves-effect lighten-waves btn red lighten-2">
               Clear
             </button>
             <button
               type="submit"
               onClick={e => this.addNewFriend(e)}
-              className="col offset-s3 waves-effect lighten-waves btn"
-            >
+              className="col offset-s3 waves-effect lighten-waves btn">
               Submit
             </button>
           </div> 
@@ -287,10 +221,9 @@ class AddFriend extends Component {
           (<div className="row">
             <br/>
             <br/>
-            {this.deleteButton()}
+            <DeleteFriendButton />
           </div>)}
         </form>
-       
       </div>
     );
   }
