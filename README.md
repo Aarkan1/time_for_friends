@@ -21,5 +21,12 @@ Can't serve frontend from server, because Babel transpiles Classes to Functions 
 
 <details>
     <summary style="font-size: 3em" >Hidden Details</summary>
-    Something small enough to escape casual notice.
+    
+## hej
+```js
+cd frontend
+npm run start
+```
+
+Something small enough to escape casual notice.
 </details>
