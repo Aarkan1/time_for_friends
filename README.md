@@ -20,6 +20,6 @@ Can't serve frontend from server, because Babel transpiles Classes to Functions 
 
 
 <details>
-    <summary><h2>Hidden Details</h2></summary>
+    <summary style="font-size: 3em" >Hidden Details</summary>
     Something small enough to escape casual notice.
 </details>
