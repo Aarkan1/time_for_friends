@@ -20,7 +20,7 @@ Can't serve frontend from server, because Babel transpiles Classes to Functions 
 
 
 <details>
-    <summary style="font-size: 3em" >Hidden Details</summary>
+    <summary style="color: red" >Hidden Details</summary>
     
 ## hej
 ```js
